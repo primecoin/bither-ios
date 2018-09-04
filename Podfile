@@ -1,5 +1,5 @@
 platform:ios,'7.0'
-target 'bither-ios' do
+target 'primer-ios' do
     pod 'KSCrash', '~> 0.0.3'
     pod 'MKNetworkKit', '~> 0.87'
     pod 'AFNetworking', '~> 2.0'
@@ -7,5 +7,6 @@ target 'bither-ios' do
     pod 'SimpleKeychain'
     pod 'FXBlurView'
     pod 'OpenSSL', :git => 'https://github.com/bither/OpenSSL.git'
-    pod 'Bitheri',:git => 'https://github.com/bither/bitheri.git', :branch => 'develop'
+    pod 'JSONModel'
+    pod 'Primeri', :git => 'https://github.com/primecoin/primeri.git'
 end

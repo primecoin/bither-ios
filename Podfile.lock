@@ -20,11 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Bitheri (1.6.5):
-    - CocoaLumberjack (~> 1.9.1)
-    - FMDB (~> 2.3)
-    - OpenSSL (= 1.0.1j)
-    - Reachability (~> 3.1.1)
   - CocoaLumberjack (1.9.2):
     - CocoaLumberjack/Extensions (= 1.9.2)
   - CocoaLumberjack/Core (1.9.2)
@@ -34,6 +29,7 @@ PODS:
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
   - FXBlurView (1.6.4)
+  - JSONModel (1.7.0)
   - KSCrash (0.0.9):
     - KSCrash/Installations (= 0.0.9)
     - KSCrash/no-arc (= 0.0.9)
@@ -92,17 +88,23 @@ PODS:
   - MKNetworkKit (0.87):
     - Reachability (~> 3.1.0)
   - OpenSSL (1.0.1j)
+  - Primeri (1.6.5):
+    - CocoaLumberjack (~> 1.9.1)
+    - FMDB (~> 2.3)
+    - OpenSSL (= 1.0.1j)
+    - Reachability (~> 3.1.1)
   - Reachability (3.1.1)
   - RegexKitLite (4.0)
   - SimpleKeychain (0.8.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - Bitheri (from `https://github.com/bither/bitheri.git`, branch `develop`)
   - FXBlurView
+  - JSONModel
   - KSCrash (~> 0.0.3)
   - MKNetworkKit (~> 0.87)
   - OpenSSL (from `https://github.com/bither/OpenSSL.git`)
+  - Primeri (from `https://github.com/primecoin/primeri.git`)
   - RegexKitLite (~> 4.0)
   - SimpleKeychain
 
@@ -112,6 +114,7 @@ SPEC REPOS:
     - CocoaLumberjack
     - FMDB
     - FXBlurView
+    - JSONModel
     - KSCrash
     - MKNetworkKit
     - Reachability
@@ -119,33 +122,33 @@ SPEC REPOS:
     - SimpleKeychain
 
 EXTERNAL SOURCES:
-  Bitheri:
-    :branch: develop
-    :git: https://github.com/bither/bitheri.git
   OpenSSL:
     :git: https://github.com/bither/OpenSSL.git
+  Primeri:
+    :git: https://github.com/primecoin/primeri.git
 
 CHECKOUT OPTIONS:
-  Bitheri:
-    :commit: 90dcea2dd677693c7945eaf9bc4365d3764a8b88
-    :git: https://github.com/bither/bitheri.git
   OpenSSL:
     :commit: b7ff9ed0245e2b5b1a212a1e86131487df4fc518
     :git: https://github.com/bither/OpenSSL.git
+  Primeri:
+    :commit: 9eb501b832e12671510d27b0a96b864820b9a9bd
+    :git: https://github.com/primecoin/primeri.git
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  Bitheri: 8340f687fd276d9ae7d550090204524f097a81ef
   CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   KSCrash: 2ca11262cd88571992ada7861639a6eb224c6c2a
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
   OpenSSL: 6cc604cf322dabb4695f3b7be882a47ed44a8146
+  Primeri: a04d1391e6ad0f04b209411284c46daeac7eb66f
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
 
-PODFILE CHECKSUM: 43fdb9057edb04e2867cd764dfe11b202823407d
+PODFILE CHECKSUM: 3b58d0ff1c2d6ac3060b7310c52e2dc2aebef66a
 
 COCOAPODS: 1.5.3
