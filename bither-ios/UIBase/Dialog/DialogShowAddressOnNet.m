@@ -18,10 +18,10 @@
 
 - (instancetype)initWithAddress:(NSString *)address {
     NSMutableArray *array = [NSMutableArray new];
-    [array addObject:[[Action alloc] initWithName:NSLocalizedString(@"View on Blockchain.info", nil) target:nil andSelector:@selector(showOnBlockchain)]];
-    if ([UserDefaultsUtil instance].localeIsChina || [[UserDefaultsUtil instance] localeIsZHHant]) {
-        [array addObject:[[Action alloc] initWithName:NSLocalizedString(@"address_option_view_on_btc", nil) target:nil andSelector:@selector(showOnBlockMeta)]];
-    }
+    [array addObject:[[Action alloc] initWithName:NSLocalizedString(@"View on Bchain.info", nil) target:nil andSelector:@selector(showOnBlockchain)]];
+//    if ([UserDefaultsUtil instance].localeIsChina || [[UserDefaultsUtil instance] localeIsZHHant]) {
+//        [array addObject:[[Action alloc] initWithName:NSLocalizedString(@"address_option_view_on_btc", nil) target:nil andSelector:@selector(showOnBlockMeta)]];
+//    }
     self = [super initWithActions:array];
     if (self) {
         _address = address;
@@ -30,7 +30,7 @@
 }
 
 - (void)showOnBlockchain {
-    NSString *url = [NSString stringWithFormat:@"http://blockchain.info/address/%@", _address];
+    NSString *url = [NSString stringWithFormat:@"https://bchain.info/XPM/addr/%@", _address];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 

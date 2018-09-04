@@ -37,7 +37,7 @@
     if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
         self.tableView.layoutMargins = UIEdgeInsetsZero;
     }
-    NSString *version = [NSString stringWithFormat:@"Bither Cold %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:CFBundleShortVersionString]];
+    NSString *version = [NSString stringWithFormat:@"Primecoin Cold %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:CFBundleShortVersionString]];
     [self configureHeaderAndFooter:self.tableView background:ColorBg isHot:NO version:version];
 }
 

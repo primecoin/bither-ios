@@ -78,13 +78,13 @@ ErrorHandler errorHandler = ^(NSOperation *errorOp, NSError *error) {
     if (errorCallback == nil) {
         errorCallback = errorHandler;
     }
-    [self   initEngine:^(MKNetworkOperation *completedOperation) {
+//    [self   initEngine:^(MKNetworkOperation *completedOperation) {//验证cookie
         [self execGet:url withParams:params networkType:networkType completed:completedOperationParam andErrorCallback:errorCallback ssl:ssl];
-    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
-        if (errorCallback) {
-            errorCallback(errorOp, error);
-        }
-    }];
+//    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
+//        if (errorCallback) {
+//            errorCallback(errorOp, error);
+//        }
+//    }];
 }
 
 - (void)execGet:(NSString *)url withParams:(NSDictionary *)params networkType:(BitherNetworkType)networkType completed:(CompletedOperation)completedOperationParam andErrorCallback:(ErrorHandler)errorCallback ssl:(BOOL)ssl {
@@ -95,11 +95,11 @@ ErrorHandler errorHandler = ^(NSOperation *errorOp, NSError *error) {
         completedOperationParam(completedOperation);
     }            errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         // NSLog(@"completedOperation:%@",completedOperation);
-        if (completedOperation.HTTPStatusCode == 403) {
-            [self    getCookie:^(MKNetworkOperation *completedOperation) {
-            } andErrorCallBack:^(NSOperation *errorOp, NSError *error) {
-            }];
-        }
+//        if (completedOperation.HTTPStatusCode == 403) {
+//            [self    getCookie:^(MKNetworkOperation *completedOperation) {
+//            } andErrorCallBack:^(NSOperation *errorOp, NSError *error) {
+//            }];
+//        }
         if (errorCallback != nil) {
             errorCallback(completedOperation, error);
         }
@@ -149,11 +149,11 @@ ErrorHandler errorHandler = ^(NSOperation *errorOp, NSError *error) {
     [post addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         completedOperationParam(completedOperation);
     }             errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        if (completedOperation.HTTPStatusCode == 403) {
-            [self    getCookie:^(MKNetworkOperation *completedOperation) {
-            } andErrorCallBack:^(NSOperation *errorOp, NSError *error) {
-            }];
-        }
+//        if (completedOperation.HTTPStatusCode == 403) {
+//            [self    getCookie:^(MKNetworkOperation *completedOperation) {
+//            } andErrorCallBack:^(NSOperation *errorOp, NSError *error) {
+//            }];
+//        }
         if (errorCallback != nil) {
             errorCallback(completedOperation, error);
         }
@@ -162,7 +162,7 @@ ErrorHandler errorHandler = ^(NSOperation *errorOp, NSError *error) {
     [mkNetworkEngine enqueueOperation:post];
 
 }
-
+//验证cookie
 - (void)getCookie:(CompletedOperation)completedOperationParam andErrorCallBack:(ErrorHandler)errorCallback {
     @synchronized (self) {
         if ([[BitherEngine instance] getCookies].count > 0) {
@@ -215,10 +215,28 @@ ErrorHandler errorHandler = ^(NSOperation *errorOp, NSError *error) {
         case ChainBtcCom:
             networkEngine = [bitherEngine getChainBtcComEngine];
             break;
+        case PrimeMarket:
+            networkEngine = [bitherEngine getPrimeMarketEngine];
+            break;
         default:
             networkEngine = [bitherEngine getUserNetworkEngine];
             break;
     }
     return networkEngine;
+}
+#pragma AF-GET
+- (void)AFGet:(NSString *)url withParams:(NSDictionary *)params completed:(IdResponseBlock)completedOperationParam andErrorCallback:(ErrorBlock)errorCallback{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        if (completedOperationParam) {
+            completedOperationParam(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (errorCallback) {
+            errorCallback(error);
+        }
+    }];
 }
 @end

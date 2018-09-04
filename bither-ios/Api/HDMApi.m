@@ -50,7 +50,7 @@ static HDMApi *hdmApi;
 
     return self;
 }
-
+//
 - (void)getHDMPasswordRandomWithHDMBid:(NSString *)hdmBid callback:(IdResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback; {
     NSString *url = [NSString stringWithFormat:@"https://hdm.bither.net/api/v1/%@/hdm/password", hdmBid];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

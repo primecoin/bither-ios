@@ -52,50 +52,51 @@ static StatusBarNotificationWindow *notificationWindow;
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    if ([[BTSettings instance] getAppMode] == COLD) {
+    if ([[BTSettings instance] getAppMode] == COLD) {//app模式为cold 请求最大间隔以阻止请求
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
     } else {
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }
 
-    [[BTPeerManager instance] initAddress];
-
-    if ([[BTSettings instance] needChooseMode]) {
+    [[BTPeerManager instance] initAddress];//初始化钱包地址——从数据库读取
+    
+    if ([[BTSettings instance] needChooseMode]) {//选择节点(切换冷热钱包)
         [[BTSettings instance] setAppMode:HOT];
     }
 
-    [CrashLog initCrashLog];
+    [CrashLog initCrashLog];//发送崩溃日志
     
-    [BTBIP39 sharedInstance].wordList = [BTWordsTypeManager instance].getWordsTypeValueForUserDefaults;
+    [BTBIP39 sharedInstance].wordList = [BTWordsTypeManager instance].getWordsTypeValueForUserDefaults;//助记词配置初始化
     
-    if ([UpgradeUtil needUpgradeKeyFromFileToDB]) {
-        DialogProgress *dp = [[DialogProgress alloc] initWithMessage:NSLocalizedString(@"Please wait…", nil)];
-        __block  DialogProgress *sslfDp = dp;
-        [dp showInWindow:self.window completion:^{
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                BOOL success = [UpgradeUtil upgradeKeyFromFileToDB];
-                if (success) {
-                    [[UserDefaultsUtil instance] setLastVersion:[SystemUtil getVersionCode]];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [sslfDp dismissWithCompletion:^{
-                            [self loadViewController];
-                        }];
-                    });
-                }
-            });
-        }];
-    } else {
-        [self loadViewController];
-    }
-
+//    if ([UpgradeUtil needUpgradeKeyFromFileToDB]) {//版本校验更新
+//        DialogProgress *dp = [[DialogProgress alloc] initWithMessage:NSLocalizedString(@"Please wait…", nil)];
+//        __block  DialogProgress *sslfDp = dp;
+//        [dp showInWindow:self.window completion:^{
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//                BOOL success = [UpgradeUtil upgradeKeyFromFileToDB];
+//                if (success) {
+//                    [[UserDefaultsUtil instance] setLastVersion:[SystemUtil getVersionCode]];
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [sslfDp dismissWithCompletion:^{
+//                            [self loadViewController];
+//                        }];
+//                    });
+//                }
+//            });
+//        }];
+//    } else {
+        [self loadViewController];//加载视图
+//    }
+    
+    //注册通知
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]];
     }
 
-    [self hdAccountPaymentAddressChanged:nil];
-    [self updateGroupBalance];
-    
-    [self upgrade];
+    [self hdAccountPaymentAddressChanged:nil];//支付地址改变执行
+    [self updateGroupBalance];//更新余额
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChange) name:kReachabilityChangedNotification object:nil];//添加网络监听
+    [self upgrade];//升级
 
     //   [[BTSettings instance] openBitheriConsole];
     
@@ -108,19 +109,19 @@ static StatusBarNotificationWindow *notificationWindow;
     NSInteger updateCode = defaults.getUpdateCode;
     
     if (updateCode == -1) {
-        [defaults setTransactionFeeMode: TwentyX];
+        [defaults setTransactionFeeMode: Normal];//设置交易手续费
         
-        [defaults setUpdateCode: FEE_UPDATE_CODE];
+//        [defaults setUpdateCode: FEE_UPDATE_CODE];//设置升级code为0
     }
 }
 
-- (void)loadViewController {
+- (void)loadViewController {//加载视图
     if (![self isAddAd]) {
         [self continueToLoadViewController];
     }
 }
 
-- (void)continueToLoadViewController {
+- (void)continueToLoadViewController {//设置根控制器
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     if (![[BTSettings instance] needChooseMode]) {
         IOS7ContainerViewController *container = [[IOS7ContainerViewController alloc] init];
@@ -138,68 +139,66 @@ static StatusBarNotificationWindow *notificationWindow;
     
     // NSLog(@"h %d",[[BTBlockChain instance] lastBlock].blockNo);
     [self callInHot:^{
-        [[PeerUtil instance] startPeer];
-        [[BitherTime instance] start];
+        [[PeerUtil instance] startPeer];//检查支付验证（spv）
+        [[BitherTime instance] start];//开始每60秒更新交易数据（价格）
     }];
     
     [self callInCold:^{
-        [[Reachability reachabilityForInternetConnection] startNotifier];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChange) name:kReachabilityChangedNotification object:nil];
+        [[Reachability reachabilityForInternetConnection] startNotifier];//检测网络状态
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChange) name:kReachabilityChangedNotification object:nil];//添加网络状态监听
         
     }];
-    notificationWindow = [[StatusBarNotificationWindow alloc] initWithOriWindow:self.window];
-    [[PinCodeUtil instance] becomeActive];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:BitherBalanceChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hdAccountPaymentAddressChanged:) name:kHDAccountPaymentAddressChangedNotification object:nil];
+    notificationWindow = [[StatusBarNotificationWindow alloc] initWithOriWindow:self.window];//bar样式
+    [[PinCodeUtil instance] becomeActive];//未知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:BitherBalanceChangedNotification object:nil];//余额变化
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hdAccountPaymentAddressChanged:) name:kHDAccountPaymentAddressChangedNotification object:nil];//付款地址变化
 }
 
-- (BOOL)isAddAd {
-    ChooseModeViewController *chooseMode = (ChooseModeViewController *)self.window.rootViewController;
-    for (UIView *view in chooseMode.view.subviews) {
-        if ([view isMemberOfClass:[AdView class]]) {
-            AdView *adView = (AdView *)view;
-            adView.done = ^{
-                [self continueToLoadViewController];
-            };
-            return true;
-        }
-    }
+- (BOOL)isAddAd {//广告
+//    ChooseModeViewController *chooseMode = (ChooseModeViewController *)self.window.rootViewController;
+//    for (UIView *view in chooseMode.view.subviews) {
+//        if ([view isMemberOfClass:[AdView class]]) {
+//            AdView *adView = (AdView *)view;
+//            adView.done = ^{
+//                [self continueToLoadViewController];
+//            };
+//            return true;
+//        }
+//    }
     return false;
 }
 
-- (void)notification:(NSNotification *)notification {
+- (void)notification:(NSNotification *)notification {//更新余额通知
     NSArray *array = [notification object];
     [NotificationUtil notificationTx:array];
     [self updateGroupBalance];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application {//进入后台
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self callInHot:^{
+    [self callInHot:^{//关闭计时器
         [[BitherTime instance] pause];
     }];
-    [self callInCold:^{
+    [self callInCold:^{//关闭网络监听
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     }];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
     [self callInHot:^{
-        [[BitherTime instance] resume];
-        [TrendingGraphicData clearCache];
-        if (![[BTPeerManager instance] connected]) {
-            [[PeerUtil instance] startPeer];
+        [[BitherTime instance] resume];//开启计时器
+        [TrendingGraphicData clearCache];//清除数据缓存
+        if (![[BTPeerManager instance] connected]) {//判断是否连接节点服务器
+            [[PeerUtil instance] startPeer];//检查支付验证（spv）
         }
     }];
     
     [self callInCold:^{
-        if ([NetworkUtil isEnable3G] || [NetworkUtil isEnableWIFI]) {
+        if ([NetworkUtil isEnable3G] || [NetworkUtil isEnableWIFI]) {//网络为3gWi-Fi跳转chooseModeViewController
             UIViewController *chooseModeViewController = [self.coldController.storyboard instantiateViewControllerWithIdentifier:@"ChooseModeViewController"];
             [self.coldController presentViewController:chooseModeViewController animated:YES completion:nil];
         }
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChange) name:kReachabilityChangedNotification object:nil];
-
     }];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
@@ -212,7 +211,7 @@ static StatusBarNotificationWindow *notificationWindow;
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {//后台获取
     //TODO time of fetch
     if ([[BTSettings instance] getAppMode] == COLD) {
         completionHandler(UIBackgroundFetchResultNoData);
@@ -229,7 +228,7 @@ static StatusBarNotificationWindow *notificationWindow;
 //        return;
 //    }
 
-    // timeout after 25 seconds
+    // 25秒后获取数据
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         if (syncFailedObserver) [[NSNotificationCenter defaultCenter] removeObserver:syncFailedObserver];
         syncFailedObserver = nil;
@@ -261,7 +260,7 @@ static StatusBarNotificationWindow *notificationWindow;
 //                                                           if (syncFailedObserver) [[NSNotificationCenter defaultCenter] removeObserver:syncFailedObserver];
 //                                                           syncFinishedObserver = syncFailedObserver = nil;
 //                                                       }];
-//    
+//    数据同步失败
     syncFailedObserver =
             [[NSNotificationCenter defaultCenter] addObserverForName:BTPeerManagerSyncFailedNotification object:nil
                                                                queue:nil usingBlock:^(NSNotification *note) {
@@ -276,10 +275,10 @@ static StatusBarNotificationWindow *notificationWindow;
 //                                                           if (syncFinishedObserver) [[NSNotificationCenter defaultCenter] removeObserver:syncFinishedObserver];
                     }];
 
-    [[PeerUtil instance] startPeer];
+    [[PeerUtil instance] startPeer];//检查节点
 }
 
-- (void)stopPeerWithFetch {
+- (void)stopPeerWithFetch {//后台停止连接节点
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     if (state == UIApplicationStateBackground) {
         if ([[BTPeerManager instance] connected]) {
@@ -290,6 +289,7 @@ static StatusBarNotificationWindow *notificationWindow;
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    //本地通知
     NSDictionary *dic = notification.userInfo;
     NSLog(@"user info = %@", [dic objectForKey:@"key"]);
     application.applicationIconBadgeNumber = 0;
@@ -358,9 +358,9 @@ static StatusBarNotificationWindow *notificationWindow;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:BitherBalanceChangedNotification object:nil];
-    [self callInCold:^{
+//    [self callInCold:^{
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
-    }];
+//    }];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHDAccountPaymentAddressChangedNotification object:nil];
     [[BitherTime instance] stop];
 }
@@ -404,6 +404,9 @@ static StatusBarNotificationWindow *notificationWindow;
 }
 
 - (void)reachabilityChange {
+    [self callInHot:^{
+        [[PeerUtil instance] connectPeer];
+    }];
     [self callInCold:^{
         if ([NetworkUtil isEnable3G] || [NetworkUtil isEnableWIFI]) {
             UIViewController *chooseModeViewController = [self.coldController.storyboard instantiateViewControllerWithIdentifier:@"ChooseModeViewController"];

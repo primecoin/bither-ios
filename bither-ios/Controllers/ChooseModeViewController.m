@@ -15,7 +15,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+//首页选择界面btc&bth
 #import "ChooseModeViewController.h"
 #import "UIColor+Util.h"
 #import "BlockUtil.h"
@@ -90,7 +90,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self isShowAd];
+//    [self isShowAd];
 }
 
 - (void)viewDidLoad {
@@ -118,7 +118,7 @@
         AdView *adView = [[AdView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         [self.view addSubview:adView];
     } else {
-        [[BitherApi instance] getAdApi];
+        [[BitherApi instance] getAdApi];//获取广告
     }
 }
 
@@ -315,7 +315,7 @@
 
 @implementation ChooseModeViewController (DowloadSpvDelegate)
 
-- (void)success {
+- (void)success {//同步区块成功
     [BlockUtil instance].delegate = nil;
     self.vHotRetry.hidden = YES;
     self.vHotProgress.hidden = NO;

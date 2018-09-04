@@ -47,7 +47,7 @@
     }
     return self;
 }
-
+//导出私钥
 - (void)importPrivateKey {
     self.dp = [[DialogProgress alloc] initWithMessage:NSLocalizedString(@"Please wait…", nil)];
     [self.dp showInWindow:self.controller.view.window completion:^{

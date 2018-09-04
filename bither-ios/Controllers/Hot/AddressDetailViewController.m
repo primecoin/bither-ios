@@ -15,7 +15,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+//  地址详情
 #import "AddressDetailViewController.h"
 #import "AddressDetailCell.h"
 #import "TransactionCell.h"
@@ -211,14 +211,14 @@
 }
 
 - (void)showAddressOnBlockChainInfo {
-    NSString *url = [NSString stringWithFormat:@"http://blockchain.info/address/%@", self.address.address];
+    NSString *url = [NSString stringWithFormat:@"https://bchain.info/XPM/addr/%@", self.address.address];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
-- (void)showAddressOnBlockMeta {
-    NSString *url = [NSString stringWithFormat:@"https://btc.com/%@", self.address.address];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-}
+//- (void)showAddressOnBlockMeta {
+//    NSString *url = [NSString stringWithFormat:@"https://btc.com/%@", self.address.address];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+//}
 
 - (void)showPrivateKeyQrCode {
     DialogPassword *dialog = [[DialogPassword alloc] initWithDelegate:self];

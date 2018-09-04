@@ -233,7 +233,7 @@
     BOOL validPassword = [StringUtil validPassword:self.tfPassword.text];
     BOOL validAddress = [[self getToAddress] isValidBitcoinAddress];
     int64_t amount = self.amtLink.amount;
-    return validAddress && validPassword && amount > 0;
+    return validAddress && validPassword && amount >0;
 }
 
 - (void)check {

@@ -302,7 +302,7 @@
 - (BOOL)checkValues {
     BOOL validAddress = [[self getToAddress] isValidBitcoinAddress];
     int64_t amount = self.amtLink.amount;
-    return validAddress && amount > 0;
+    return validAddress && amount >0;
 }
 
 - (void)check {

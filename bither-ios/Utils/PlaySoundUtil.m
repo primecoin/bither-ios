@@ -37,8 +37,8 @@ static void SoundFinished(SystemSoundID soundID, void *sample) {
     _callback = callback;
     SystemSoundID soundID;
 
-    OSStatus err = AudioServicesCreateSystemSoundID((__bridge CFURLRef) (url), &soundID);
-    if (err) {
+//    OSStatus err = AudioServicesCreateSystemSoundID((__bridge CFURLRef) (url), &soundID);//未知错误
+    if (1) {
         if (_callback) {
             _callback();
         }

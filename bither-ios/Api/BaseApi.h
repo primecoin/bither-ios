@@ -17,34 +17,33 @@
 
 #import <Foundation/Foundation.h>
 #import "BitherEngine.h"
+#import "AFNetworking.h"
 
 #define kMKNetworkKitRequestTimeOutInSeconds 10
 
-#define BITHER_GET_COOKIE_URL @"api/v1/cookie"
-#define BITHER_GET_ONE_SPVBLOCK_API @"api/v2/block/spv/one"
-#define BLOCKCHAIN_INFO_GET_LASTST_BLOCK @"latestblock"
-#define BLOCKCHAIN_GET_ONE_SPVBLOCK_API @"block-height/%d?format=json"
-#define BITHER_IN_SIGNATURES_API  @"api/v1/address/%@/insignature/%d"
-#define SPLIT_BROADCAST @"https://bitpie.getcai.com/api/v1/%@/broadcast"
+#define BITHER_GET_COOKIE_URL @"api/v1/cookie"//获取服务端cookie
+#define BLOCKCHAIN_INFO_GET_LASTST_BLOCK @"http://api.primecoin.org/rest/pcoin/syncblock"//获取最新区块
+#define BITHER_IN_SIGNATURES_API  @"api/v1/address/%@/insignature/%d"//根据地址获取签名
+#define SPLIT_BROADCAST @"https://bitpie.getcai.com/api/v1/%@/broadcast"//发送广播（获取比特派bcc地址）
 
-#define BCD_PREBLOCKHASH @"https://bitpie.getcai.com/api/v1/bcd/current/block/hash"
+#define BCD_PREBLOCKHASH @"https://bitpie.getcai.com/api/v1/bcd/current/block/hash"//获取块的哈希值
 
-#define SPLIT_HAS_ADDRESS @"https://bitpie.getcai.com/api/v1/%@/has/address/%@"
+#define SPLIT_HAS_ADDRESS @"https://bitpie.getcai.com/api/v1/%@/has/address/%@"//获取比特派bcc地址
 
-#define BITHER_Q_MYTRANSACTIONS @"api/v1/address/%@/transaction"
-#define BITHER_ERROR_API  @"api/v1/error"
-#define BITHER_EXCHANGE_TICKER @"api/v1/exchange/ticker"
-#define BITHER_KLINE_URL @"api/v1/exchange/%d/kline/%d"
-#define BITHER_DEPTH_URL @"api/v1/exchange/%d/depth"
-#define BITHER_TREND_URL @"api/v1/exchange/%d/trend"
-#define BITHER_UPLOAD_AVATAR @"api/v1/avatar"
-#define BITHER_DOWNLOAD_AVATAR @"api/v1/avatar"
+#define BITHER_Q_MYTRANSACTIONS @"api/v1/address/%@/transaction"//未使用
+#define BITHER_ERROR_API  @"api/v1/error"//上传错误日志
+#define BITHER_EXCHANGE_TICKER @"v2/ticker/42/?convert=CNY"//更新图表交易数据
+#define BITHER_KLINE_URL @"api/v1/exchange/%d/kline/%d"//未使用
+#define BITHER_DEPTH_URL @"api/v1/exchange/%d/depth"//未使用
+#define BITHER_TREND_URL @"currencies/primecoin"//获取图表数据
+#define BITHER_UPLOAD_AVATAR @"api/v1/avatar"//未使用
+#define BITHER_DOWNLOAD_AVATAR @"api/v1/avatar"//未使用
 
-#define BC_ADDRESS_TX_URL @"api/v2/address/%@/transaction/p/%d"
-#define BC_ADDRESS_STAT_URL @"api/v2/address/%@/transaction/stat"
+#define BC_ADDRESS_TX_URL @"api/v2/address/%@/transaction/p/%d"//获取交易数据——bither
+#define BC_ADDRESS_STAT_URL @"api/v2/address/%@/transaction/stat"//获取我的交易数据——bither
 //limit=50 one Page can show 50 tx informations
-#define BLOCK_INFO_ADDRESS_TX_URL @"rawaddr/%@/?offset=%d"
-#define BLOCK_INFO_TX_INDEX_URL @"https://blockchain.info/rawtx/%@?format=hex"
+#define BLOCK_INFO_ADDRESS_TX_URL @"http://api.primecoin.org/rest/pcoin/txs/%@?offset=%d&length=100"//账户钱包列表数据
+//#define BLOCK_INFO_TX_INDEX_URL @"http://192.168.1.10/rest/pcoin/txs/%@"//获取交易数据
 
 @interface BaseApi : NSObject
 
@@ -65,6 +64,6 @@
 - (void)post:(NSString *)url withParams:(NSDictionary *)params networkType:(BitherNetworkType)networkType completed:(CompletedOperation)completedOperationParam andErrorCallBack:(ErrorHandler)errorCallback;
 
 - (void)post:(NSString *)url withParams:(NSDictionary *)params networkType:(BitherNetworkType)networkType completed:(CompletedOperation)completedOperationParam andErrorCallBack:(ErrorHandler)errorCallback ssl:(BOOL)ssl;
-
-
+#pragma AF-GET
+- (void)AFGet:(NSString *)url withParams:(NSDictionary *)params completed:(IdResponseBlock)completedOperationParam andErrorCallback:(ErrorBlock)errorCallback;
 @end

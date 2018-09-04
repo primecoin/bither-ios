@@ -24,13 +24,13 @@
 "3TU-hn-ytB.text" = "Balance:";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "3Xg-gQ-PrT"; */
-"3Xg-gQ-PrT.placeholder" = "Bitcoin address";
+"3Xg-gQ-PrT.placeholder" = "Primecoin address";
 
 /* Class = "UILabel"; text = "Pay to"; ObjectID = "4lI-QI-HQr"; */
 "4lI-QI-HQr.text" = "Pay to";
 
 /* Class = "UIButton"; normalTitle = "Switch to Bither Cold"; ObjectID = "4pa-hj-c7j"; */
-"4pa-hj-c7j.normalTitle" = "Switch to Bither Cold";
+"4pa-hj-c7j.normalTitle" = "Switch to Primecoin Cold";
 
 /* Class = "UILabel"; text = "HDM Hot"; ObjectID = "5Da-1U-rSQ"; */
 "5Da-1U-rSQ.text" = "HDM Hot";
@@ -48,7 +48,7 @@
 "6PV-kG-o95.text" = "Label";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "6Td-u4-E0s"; */
-"6Td-u4-E0s.placeholder" = "Bitcoin address";
+"6Td-u4-E0s.placeholder" = "Primecoin address";
 
 /* Class = "UIButton"; normalTitle = "Send"; ObjectID = "7HM-O3-12p"; */
 "7HM-O3-12p.normalTitle" = "Send";
@@ -63,13 +63,13 @@
 "7Z6-U6-s2f.placeholder" = "0.00";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "7eD-5T-1F7"; */
-"7eD-5T-1F7.placeholder" = "Bitcoin address";
+"7eD-5T-1F7.placeholder" = "Primecoin address";
 
 /* Class = "UILabel"; text = "How many private keys to generate?"; ObjectID = "8Qe-tr-XPb"; */
 "8Qe-tr-XPb.text" = "How many private keys to generate?";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "8hY-cL-7RN"; */
-"8hY-cL-7RN.placeholder" = "Bitcoin address";
+"8hY-cL-7RN.placeholder" = "Primecoin address";
 
 /* Class = "UILabel"; text = "3899.23"; ObjectID = "97C-RC-ZTW"; */
 "97C-RC-ZTW.text" = "3899.23";
@@ -222,7 +222,7 @@
 "UPg-jL-w07.normalTitle" = "C";
 
 /* Class = "UILabel"; text = "Bither Hot: Online & Simple."; ObjectID = "V5M-8Z-afm"; */
-"V5M-8Z-afm.text" = "Bither Hot: Online & Simple.";
+"V5M-8Z-afm.text" = "Primecoin Hot: Online & Simple.";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "VrN-rd-ovc"; */
 "VrN-rd-ovc.text" = "Label";
@@ -309,7 +309,7 @@
 "eP1-s3-zSH.placeholder" = "0.00";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "fCj-hW-RGp"; */
-"fCj-hW-RGp.placeholder" = "Bitcoin address";
+"fCj-hW-RGp.placeholder" = "Primecoin address";
 
 /* Class = "UIButton"; normalTitle = "C"; ObjectID = "fhw-Xa-7ci"; */
 "fhw-Xa-7ci.normalTitle" = "C";
@@ -366,7 +366,7 @@
 "kSV-dE-lAl.text" = "HDM Cold";
 
 /* Class = "UIButton"; normalTitle = "Monitor Bither Cold"; ObjectID = "kbG-t9-dEm"; */
-"kbG-t9-dEm.normalTitle" = "Monitor Bither Cold";
+"kbG-t9-dEm.normalTitle" = "Monitor Primecoin Cold";
 
 /* Class = "UILabel"; text = "HDM Cold"; ObjectID = "lUJ-Y1-VRb"; */
 "lUJ-Y1-VRb.text" = "HDM Cold";
@@ -516,7 +516,7 @@
 "ygh-ls-Qes.normalTitle" = "Send";
 
 /* Class = "UILabel"; text = "Bither Cold: Offline & Secure."; ObjectID = "yu4-YT-Y6b"; */
-"yu4-YT-Y6b.text" = "Bither Cold: Offline & Secure.";
+"yu4-YT-Y6b.text" = "Primecoin Cold: Offline & Secure.";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "yx9-EY-UeR"; */
 "yx9-EY-UeR.text" = "Label";
@@ -537,7 +537,7 @@
 "zjg-wy-EHw.normalTitle" = "Add This Private Key";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "8hY-cL-7RN"; */
-"8hY-cL-7RN.placeholder" = "Bitcoin address";
+"8hY-cL-7RN.placeholder" = "Primecoin address";
 
 /* Class = "UILabel"; text = "Amount"; ObjectID = "I3O-1Q-uKd"; */
 "I3O-1Q-uKd.text" = "Amount";

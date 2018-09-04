@@ -17,7 +17,7 @@
 //  limitations under the License.
 //
 //  Created by songchenwen on 2015/4/27.
-//
+//  恢复hd账户
 
 #import <Foundation/Foundation.h>
 

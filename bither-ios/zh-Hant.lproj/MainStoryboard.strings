@@ -27,10 +27,10 @@
 "6PV-kG-o95.text" = "Label";
 
 /* Class = "IBUITextField"; placeholder = "Bitcoin address"; ObjectID = "6Td-u4-E0s"; */
-"6Td-u4-E0s.placeholder" = "比特幣地址";
+"6Td-u4-E0s.placeholder" = "質數幣地址";
 
 /* Class = "IBUITextField"; placeholder = "Bitcoin address"; ObjectID = "7eD-5T-1F7"; */
-"7eD-5T-1F7.placeholder" = "比特幣地址";
+"7eD-5T-1F7.placeholder" = "質數幣地址";
 
 /* Class = "IBUILabel"; text = "How many private keys to generate?"; ObjectID = "8Qe-tr-XPb"; */
 "8Qe-tr-XPb.text" = "生成多少個私鑰?";
@@ -320,7 +320,7 @@
 "x9d-Sc-rrj.text" = "私鑰";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "fCj-hW-RGp"; */
-"fCj-hW-RGp.placeholder" = "比特幣地址";
+"fCj-hW-RGp.placeholder" = "質數幣地址";
 
 /* Class = "UILabel"; text = "Amount"; ObjectID = "aHu-iQ-TCR"; */
 "aHu-iQ-TCR.text" = "金額";
@@ -386,7 +386,7 @@
 "Pgs-ev-QNu.text" = "生成 HDM 賬戶";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "3Xg-gQ-PrT"; */
-"3Xg-gQ-PrT.placeholder" = "比特幣地址";
+"3Xg-gQ-PrT.placeholder" = "質數幣地址";
 
 /* Class = "UIButton"; normalTitle = "Send"; ObjectID = "7HM-O3-12p"; */
 "7HM-O3-12p.normalTitle" = "發送";
@@ -425,7 +425,7 @@
 "dU2-IG-q9c.text" = "冷 HD 賬戶";
 
 /* Class = "UITextField"; placeholder = "Bitcoin address"; ObjectID = "8hY-cL-7RN"; */
-"8hY-cL-7RN.placeholder" = "比特币地址";
+"8hY-cL-7RN.placeholder" = "質數幣地址";
 
 /* Class = "UILabel"; text = "Amount"; ObjectID = "I3O-1Q-uKd"; */
 "I3O-1Q-uKd.text" = "金额";

@@ -14,7 +14,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+//高级选项
 #import "AdvanceViewController.h"
 #import "SettingListCell.h"
 #import "DialogEditPassword.h"
@@ -42,7 +42,7 @@
     self.tableView.delegate = self;
     [self.tableView reloadData];
 
-    NSString *version = [NSString stringWithFormat:NSLocalizedString(@"Based on %@ %@", nil), BITHERI_NAME, BITHERI_VERSION];
+    NSString *version = [NSString stringWithFormat:NSLocalizedString(@"Based on %@ %@", nil), BITHERI_NAME, @""];
     BOOL isHot = [[BTSettings instance] getAppMode] == HOT;
     if (isHot) {
         [self configureHeaderAndFooter];
@@ -99,10 +99,10 @@
 }
 
 - (UIView *)donateView {
-    CGFloat addressHeight = 13;
+//    CGFloat addressHeight = 13;
     CGFloat addressTop = 1;
     CGFloat rowHeight = 44;
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(10, -1, self.tableView.frame.size.width - 20, rowHeight + addressHeight + addressTop)];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(9, -1, self.tableView.frame.size.width - 19, rowHeight  + addressTop)];
     v.backgroundColor = [UIColor whiteColor];
     UIButton *btnCopy = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, v.frame.size.width, v.frame.size.height)];
     [btnCopy setBackgroundImage:nil forState:UIControlStateNormal];
@@ -113,7 +113,7 @@
 
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, v.frame.size.width - 8, rowHeight)];
     lbl.backgroundColor = [UIColor clearColor];
-    lbl.text = NSLocalizedString(@"bither_team_address", nil);
+    lbl.text = NSLocalizedString(@"Generate_secure_private_key", nil);
     lbl.textColor = [UIColor blackColor];
     lbl.font = [UIFont systemFontOfSize:18];
     CGSize lblSize = [lbl sizeThatFits:CGSizeMake(v.frame.size.width, CGFLOAT_MAX)];
@@ -122,23 +122,23 @@
 
     [v addSubview:lbl];
 
-    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, CGRectGetMaxY(lbl.frame) + addressTop, self.tableView.frame.size.width, addressHeight)];
-    lbl.textColor = [UIColor colorWithWhite:0.4 alpha:1];
-    lbl.text = DONATE_ADDRESS;
-    lbl.font = [UIFont systemFontOfSize:12];
-    lbl.backgroundColor = [UIColor clearColor];
-    [v addSubview:lbl];
+//    lbl = [[UILabel alloc] initWithFrame:CGRectMake(8, CGRectGetMaxY(lbl.frame) + addressTop, self.tableView.frame.size.width, addressHeight)];
+//    lbl.textColor = [UIColor colorWithWhite:0.4 alpha:1];
+//    lbl.text = DONATE_ADDRESS;
+//    lbl.font = [UIFont systemFontOfSize:12];
+//    lbl.backgroundColor = [UIColor clearColor];
+//    [v addSubview:lbl];
 
-    CGFloat iconSize = 25;
-    CGFloat iconInsetsRight = 14;
-    CGFloat iconInsetsLeft = 10;
-    UIButton *btnQr = [[UIButton alloc] initWithFrame:CGRectMake(v.frame.size.width - iconInsetsRight - iconInsetsLeft - iconSize, 0, iconSize + iconInsetsLeft + iconInsetsRight, v.frame.size.height)];
-    [btnQr setBackgroundImage:nil forState:UIControlStateNormal];
-    [btnQr setBackgroundImage:[UIImage imageNamed:@"card_foreground_pressed"] forState:UIControlStateHighlighted];
-    btnQr.contentEdgeInsets = UIEdgeInsetsMake(0, iconInsetsLeft, 0, iconInsetsRight);
-    [btnQr setImage:[UIImage imageNamed:@"qr_code_button_icon"] forState:UIControlStateNormal];
-    [btnQr addTarget:self action:@selector(donateQr:) forControlEvents:UIControlEventTouchUpInside];
-    [v addSubview:btnQr];
+//    CGFloat iconSize = 25;
+//    CGFloat iconInsetsRight = 14;
+//    CGFloat iconInsetsLeft = 10;
+//    UIButton *btnQr = [[UIButton alloc] initWithFrame:CGRectMake(v.frame.size.width - iconInsetsRight - iconInsetsLeft - iconSize, 0, iconSize + iconInsetsLeft + iconInsetsRight, v.frame.size.height)];
+//    [btnQr setBackgroundImage:nil forState:UIControlStateNormal];
+//    [btnQr setBackgroundImage:[UIImage imageNamed:@"card_foreground_pressed"] forState:UIControlStateHighlighted];
+//    btnQr.contentEdgeInsets = UIEdgeInsetsMake(0, iconInsetsLeft, 0, iconInsetsRight);
+//    [btnQr setImage:[UIImage imageNamed:@"qr_code_button_icon"] forState:UIControlStateNormal];
+//    [btnQr addTarget:self action:@selector(donateQr:) forControlEvents:UIControlEventTouchUpInside];
+//    [v addSubview:btnQr];
 
     UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, v.frame.size.width, 1)];
     separator.backgroundColor = [UIColor colorWithWhite:0 alpha:0.15];
@@ -147,15 +147,15 @@
 }
 
 - (void)donateQr:(id)sender {
-    [[[DialogAddressQrCopy alloc] initWithAddress:DONATE_ADDRESS andTitle:NSLocalizedString(@"bither_team_address", nil)] showInWindow:self.view.window];
+//    [[[DialogAddressQrCopy alloc] initWithAddress:DONATE_ADDRESS andTitle:NSLocalizedString(@"bither_team_address", nil)] showInWindow:self.view.window];
 }
 
 - (void)toRawPrivateKey {
-    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"RawPrivateKey"] animated:YES];
+//    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"RawPrivateKey"] animated:YES];
 }
 
 - (void)configureHeaderAndFooter {
-    NSString *version = [NSString stringWithFormat:NSLocalizedString(@"Based on %@ %@", nil), BITHERI_NAME, BITHERI_VERSION];
+    NSString *version = [NSString stringWithFormat:NSLocalizedString(@"Based on %@ %@", nil), BITHERI_NAME, @""];
 
     UIImageView *ivTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_shadow_top"]];
     ivTop.contentMode = UIViewContentModeScaleToFill;
@@ -166,7 +166,7 @@
     UIImageView *ivTopRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_top_right"]];
     UIImageView *ivBottomLeft = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_bottom_left"]];
     UIImageView *ivBottomRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_bottom_right"]];
-    UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_footer_logo"]];
+    UIImageView *ivLogo = [[UIImageView alloc] init];
 
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, ivTop.frame.size.height)];
     header.backgroundColor = [UIColor clearColor];
@@ -178,7 +178,7 @@
     [header addSubview:ivTopLeft];
     self.tableView.tableHeaderView = header;
 
-    UIView *vDonation = [self donateView];
+//    UIView *vDonation = [self donateView];
 
     CGFloat logoTopMargin = 8;
     CGFloat logoBottomMargin = 6;
@@ -189,17 +189,17 @@
     lblVersion.text = version;
     [lblVersion sizeToFit];
 
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, vDonation.frame.size.height + ivBottom.frame.size.height + logoTopMargin + ivLogo.frame.size.height + logoBottomMargin + lblVersion.frame.size.height)];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, ivBottom.frame.size.height + logoTopMargin + ivLogo.frame.size.height + logoBottomMargin + lblVersion.frame.size.height)];
     footer.backgroundColor = [UIColor clearColor];
     vBottomCover.backgroundColor = ColorBg;
     [footer addSubview:vBottomCover];
 
-    [footer addSubview:vDonation];
+//    [footer addSubview:vDonation];
 
-    ivBottom.frame = CGRectMake(10, -1 + vDonation.frame.size.height, self.tableView.frame.size.width - 20, ivBottom.frame.size.height);
+    ivBottom.frame = CGRectMake(10, -1, self.tableView.frame.size.width - 20, ivBottom.frame.size.height);
     [footer addSubview:ivBottom];
-    ivBottomLeft.frame = CGRectMake(10, -1 - ivBottomLeft.frame.size.height + vDonation.frame.size.height, ivBottomLeft.frame.size.width, ivBottomLeft.frame.size.height);
-    ivBottomRight.frame = CGRectMake(footer.frame.size.width - ivBottomRight.frame.size.width - 10, -1 - ivBottomRight.frame.size.height + vDonation.frame.size.height, ivBottomRight.frame.size.width, ivBottomRight.frame.size.height);
+    ivBottomLeft.frame = CGRectMake(10, -1 - ivBottomLeft.frame.size.height, ivBottomLeft.frame.size.width, ivBottomLeft.frame.size.height);
+    ivBottomRight.frame = CGRectMake(footer.frame.size.width - ivBottomRight.frame.size.width - 10, -1 - ivBottomRight.frame.size.height, ivBottomRight.frame.size.width, ivBottomRight.frame.size.height);
     [footer addSubview:ivBottomRight];
     [footer addSubview:ivBottomLeft];
     ivLogo.frame = CGRectMake((footer.frame.size.width - ivLogo.frame.size.width) / 2, CGRectGetMaxY(ivBottom.frame) + logoTopMargin, ivLogo.frame.size.width, ivLogo.frame.size.height);

@@ -47,6 +47,12 @@
 
 #define SPECIAL_TYPE @"special_type"
 
+#import "BlockUtil.h"
+@interface TransactionsUtil()
+@property(nonatomic, assign) BOOL synFinish;
+
+@property(nonatomic, assign)NSInteger synCount;
+@end
 
 @implementation TransactionsUtil
 
@@ -172,7 +178,7 @@
     int needCompleteCount = (int)addresses.count + [[BTAddressManager instance] hasHDAccountHot] + [[BTAddressManager instance] hasHDAccountMonitored];
     //遍历所有的地址
     for (BTAddress *address in addresses) {
-        //通过每个地址获取交易
+        //通过每个地址获取交易列表
         [TransactionsUtil getTxsFromBlockChain:address callback:^{
             completeCount +=1;
             if (completeCount == needCompleteCount) {
@@ -304,17 +310,20 @@
         NSLog(@"get my transcation api %@", errorOp);
     };
     __block DictResponseBlock nextPageBlock = ^(NSDictionary *dict) {
-        int txCnt = [dict[@"n_tx"] intValue];
-        NSArray *txs = [TransactionsUtil getTxsFromBlockChain:dict];
+        NSArray *arr = [NSArray arrayWithArray:dict[@"result"]];
+        NSInteger txCnt = arr.count;
+        NSArray *txs = [TransactionsUtil getTxsFromBlockChain:dict];//获取交易列表
         [[[BTAddressManager instance] getHDAccountByHDAccountId:address.hdAccountId] initTxs:[[BTAddressManager instance] compressTxsForApi:txs andAddress:address.address]];
-        if (txCnt > txs.count && txs.count != 0) {
+        if (txCnt >= 100) {
             page += 1;
-            [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*50 callback:nextPageBlock andErrorCallBack:errorHandler];
-        }
+            [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*100 callback:nextPageBlock andErrorCallBack:errorHandler];
+            [TransactionsUtil sendSyncProgressNotification:(double)page/(page+1)];
+        }    
         else {
             nextPageBlock = nil;
             [[BitherApi instance]getblockHeightApiFromBlockChain:address.address callback:^(NSDictionary *dict) {
-                int blockCount = [dict[@"height"] intValue];
+                BTBlock *block = [BlockUtil formatBlcok:[dict objectForKey:@"result"]];
+                int blockCount = block.blockNo;
                 uint32_t storeHeight = [[BTBlockChain instance] lastBlock].blockNo;
                 if (blockCount < storeHeight && storeHeight - blockCount < 100) {
                     [[BTBlockChain instance] rollbackBlock:(uint32_t) blockCount];
@@ -341,9 +350,10 @@
                     callback();
                 }
             } andErrorCallBack:errorHandler];
+            [TransactionsUtil sendSyncProgressNotification:(double)page/(page+1)];
         }
     };
-    [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*50 callback:nextPageBlock andErrorCallBack:errorHandler];
+    [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*100 callback:nextPageBlock andErrorCallBack:errorHandler];
 }
 #pragma mark - getMyTxFromBlockChainForHDAccount
 + (void)getMyTxForHDAccount:(int)hdAccountId callback:(VoidBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
@@ -408,11 +418,12 @@
     };
 
     __block DictResponseBlock nextPageBlock = ^(NSDictionary *dict) {
-        int txCnt = [dict[@"tx_cnt"] intValue];
+        NSArray *arr = [NSArray arrayWithArray:dict[@"result"]];
+        NSInteger txCnt = arr.count;
         NSArray *txs = [TransactionsUtil getTxs:dict];
 
         [[[BTAddressManager instance] getHDAccountByHDAccountId:address.hdAccountId] initTxs:[[BTAddressManager instance] compressTxsForApi:txs andAddress:address.address]];
-        if (txCnt > txs.count && txs.count != 0) {
+        if (txCnt >= 100) {
             page += 1;
             [[BitherApi instance] getTransactionApi:address.address withPage:page callback:nextPageBlock andErrorCallBack:errorHandler];
         } else {
@@ -460,26 +471,29 @@
         NSLog(@"get my transcation Api %@",errOp);
     };
     __block DictResponseBlock nextPageBlock = ^(NSDictionary *dict) {
-        int txCnt = [dict[@"n_tx"] intValue];
-        //获得存放交易的数组
+        NSArray *arr = [NSArray arrayWithArray:dict[@"result"]];
+        NSInteger txCnt = arr.count;
+        //获得交易数组
         NSArray *txs = [TransactionsUtil getTxsFromBlockChain:dict];
         
         [address initTxs:[[BTAddressManager instance] compressTxsForApi:txs andAddress:address.address]];
-        if (txCnt > txs.count && txs.count != 0) {
+        if (txCnt >= 100) {
             page += 1;
-            [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*50 callback:nextPageBlock andErrorCallBack:errorHandler];
+            [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*100 callback:nextPageBlock andErrorCallBack:errorHandler];
+            [TransactionsUtil sendSyncProgressNotification:(double)page/(page+1)];
         }
         else{
             nextPageBlock = nil;
             [[BitherApi instance] getblockHeightApiFromBlockChain:address.address callback:^(NSDictionary *dict){
-                int blockCount = [dict[@"height"] intValue];
+                 BTBlock *block = [BlockUtil formatBlcok:[dict objectForKey:@"result"]];
+                int blockCount = block.blockNo;
                 uint32_t storeHeight = [[BTBlockChain instance] lastBlock].blockNo;
                 if (blockCount < storeHeight && storeHeight - blockCount < 100) {
                     [[BTBlockChain instance] rollbackBlock:(uint32_t) blockCount];
                 }
                 
                 [address setIsSyncComplete:YES];
-                [address updateSyncComplete];
+                [address updateSyncComplete];//有问题
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:BitherAddressNotification object:address.address];
@@ -489,10 +503,19 @@
                 }
                 
             } andErrorCallBack:errorHandler];
+            [TransactionsUtil sendSyncProgressNotification:(double)1];
         }
     };
-    [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*50 callback:nextPageBlock andErrorCallBack:errorHandler];
+    [[BitherApi instance] getTransactionApiFromBlockChain:address.address withPage:page*100 callback:nextPageBlock andErrorCallBack:errorHandler];
+    
 }
+
++ (void)sendSyncProgressNotification:(double)num{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BTPeerManagerSyncProgressNotification object:@(num)];
+    });
+}
+
 #pragma mark - getTxsFrom bither.net
 + (void)getTxs:(BTAddress *)address callback:(VoidBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
     __block int page = 1;
@@ -505,11 +528,12 @@
     };
 
     __block DictResponseBlock nextPageBlock = ^(NSDictionary *dict) {
-        int txCnt = [dict[@"tx_cnt"] intValue];
+        NSArray *arr = [NSArray arrayWithArray:dict[@"result"]];
+        NSInteger txCnt = arr.count;
         NSArray *txs = [TransactionsUtil getTxs:dict];
 
         [address initTxs:[[BTAddressManager instance] compressTxsForApi:txs andAddress:address.address]];
-        if (txCnt > txs.count && txs.count != 0) {
+        if (txCnt >= 100) {
             page += 1;
             [[BitherApi instance] getTransactionApi:address.address withPage:page callback:nextPageBlock andErrorCallBack:errorHandler];
         } else {
@@ -522,7 +546,7 @@
             }
 
             [address setIsSyncComplete:YES];
-            [address updateSyncComplete];
+            [address updateSyncComplete];//有问题
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:BitherAddressNotification object:address.address];
@@ -538,6 +562,7 @@
 
 #pragma mark - getTxsFromBlockchain.info
 + (NSMutableArray *)getTxsFromBlockChain:(NSDictionary *)dict{
+    //获取所有的区块
     NSArray *array = [[BTBlockChain instance] getAllBlocks];
     NSMutableDictionary *dictionary = [NSMutableDictionary new];
     BTBlock *minBlock = array[array.count - 1];
@@ -549,15 +574,17 @@
         dictionary[@(block.blockNo)] = block;
     }
     NSMutableArray *txs = [NSMutableArray new];
-    for (NSDictionary *each in dict[@"txs"]) {
-        NSString * txIndex = each[@"tx_index"];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:BLOCK_INFO_TX_INDEX_URL,txIndex]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        //NSLog(@"%@",url);
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        BTTx *tx = [[BTTx alloc] initWithMessage:[aString hexToData]];
-        tx.blockNo = (uint32_t) [each[@"block_height"] intValue];
+    for (NSDictionary *each in dict[@"result"]) {
+//        NSString * txIndex = each[@"txid"];
+//        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:BLOCK_INFO_TX_INDEX_URL,txIndex]];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+////        //获取到交易信息——修改txDic
+//        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+////        NSString *aString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSDictionary *txDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        BTTx *tx = [[BTTx alloc] initWithMessage:[[each objectForKey:@"hex"] hexToData]];
+        BTBlock *lastBlock = [[BTBlockChain instance] lastBlock];
+        tx.blockNo = (uint32_t) (lastBlock.blockNo - [each[@"confirmations"] intValue]+1);
         BTBlock *block;
         if (tx.blockNo < minBlockNo) {
             block = dictionary[@(minBlockNo)];
@@ -568,7 +595,7 @@
         [txs addObject:tx];
         
     }
-    return txs;
+    return txs;//返回交易数据列表
 }
 #pragma mark - getTxsFromBither.net
 + (NSArray *)getTxs:(NSDictionary *)dict; {
@@ -583,7 +610,7 @@
         dictionary[@(block.blockNo)] = block;
     };
     NSMutableArray *txs = [NSMutableArray new];
-    for (NSArray *each in dict[@"tx"]) {
+    for (NSArray *each in dict[@"result"]) {
         BTTx *tx = [[BTTx alloc] initWithMessage:[NSData dataFromBase64String:each[1]]];
         tx.blockNo = (uint32_t) [each[0] intValue];
         BTBlock *block;
@@ -598,7 +625,7 @@
     }
     return txs;
 }
-
+//交易判断
 + (NSString *)getCompleteTxForError:(NSError *)error {
     NSString *msg = @"";
     switch (error.code) {

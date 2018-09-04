@@ -89,7 +89,12 @@
 - (void)show {
     NSString *str;
     if (showMoney) {
-        double money = ([MarketUtil getDefaultNewPrice] * _amount) / pow(10, 8);
+        NTicker *tk =  [NTicker sharedManager];
+        double price = [tk.data.quotes.USD.price doubleValue];
+        if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+            price = [tk.data.quotes.CNY.price doubleValue];
+        }
+        double money = (price * _amount) / pow(10, 8);
         str = [StringUtil formatPrice:money];
     } else {
         str = [UnitUtil stringForAmount:_amount];
@@ -124,7 +129,12 @@
 }
 
 - (void)pressed:(id)sender {
-    if ([MarketUtil getDefaultNewPrice] > 0 || showMoney) {
+    NTicker *tk =  [NTicker sharedManager];
+    double price = [tk.data.quotes.USD.price doubleValue];
+    if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+        price = [tk.data.quotes.CNY.price doubleValue];
+    }
+    if (price > 0 || showMoney) {
         showMoney = !showMoney;
         [self show];
     }

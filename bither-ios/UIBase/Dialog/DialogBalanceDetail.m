@@ -51,8 +51,8 @@
 //            received += amount;
 //        }
 //    }
-    int64_t received = [[BTTxProvider instance] getTotalReceiveWithAddress:address.address];
-    int64_t sent = received - address.balance;
+    int64_t received = [[BTTxProvider instance] getTotalReceiveWithAddress:address.address];//总收入
+    int64_t sent = received - address.balance;//总支出
     NSAttributedString *receivedStr = [UnitUtil attributedStringForAmount:received withFontSize:kCountFontSize];
     NSAttributedString *sentStr = [UnitUtil attributedStringForAmount:sent withFontSize:kCountFontSize];
 

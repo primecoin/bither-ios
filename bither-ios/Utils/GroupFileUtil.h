@@ -21,7 +21,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define kBitherGroupName (@"group.bither.net")
+#define kBitherGroupName (@"group.primecoin.org")
 
 @interface GroupFileUtil : NSObject
 

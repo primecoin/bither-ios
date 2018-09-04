@@ -324,7 +324,7 @@
             UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
             if (img) {
                 CIDetector *detector = [CIDetector detectorOfType:@"CIDetectorTypeQRCode" context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
-                NSArray *features = [detector featuresInImage:[[CIImage alloc] initWithImage:img]];
+                NSArray *features = [detector featuresInImage:[[CIImage alloc] initWithImage:img]];//未知问题
                 if (features && features.count > 0) {
                     CIQRCodeFeature *qr = features[0];
                     result = qr.messageString;

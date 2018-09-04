@@ -56,9 +56,9 @@ static GroupUserDefaultUtil *groupUserDefaultsUtil;
         }
     }
     if ([self localeIsChina]) {
-        return BTCCHINA;
+        return COINMARKETCAP;
     }
-    return BITSTAMP;
+    return COINMARKETCAP;
 }
 
 - (void)setDefaultMarket:(MarketType)market {

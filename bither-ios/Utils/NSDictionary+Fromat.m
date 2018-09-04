@@ -63,6 +63,9 @@
 - (NSString *)getStringFromDict:(NSString *)key andDefault:(NSString *)defaultValue; {
     if ([[self allKeys] containsObject:key]) {
         id obj = [self objectForKey:key];
+        if ([obj isKindOfClass:[NSNull class]]) {
+            return @"";
+        }
         if ([obj isKindOfClass:[NSString class]]) {
             return obj;
         } else {

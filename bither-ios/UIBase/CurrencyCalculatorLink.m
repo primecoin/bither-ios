@@ -138,7 +138,11 @@
     if (_amount > 0 || [StringUtil isEmpty:self.tfCurrency.text]) {
         self.tfCurrency.text = @"";
         self.tfBtc.placeholder = @"0.00";
-        double price = [MarketUtil getDefaultNewPrice];
+        NTicker *tk =  [NTicker sharedManager];
+        double price = [tk.data.quotes.USD.price doubleValue];
+        if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+            price = [tk.data.quotes.CNY.price doubleValue];
+        }
         if (price > 0) {
             double money = (price * _amount) / pow(10, 8);
             self.tfCurrency.placeholder = [NSString stringWithFormat:@"%.2f", money];
@@ -153,7 +157,11 @@
     if (currency > 0 || [StringUtil isEmpty:self.tfBtc.text]) {
         self.tfBtc.text = @"";
         self.tfCurrency.placeholder = @"0.00";
-        double price = [MarketUtil getDefaultNewPrice];
+        NTicker *tk =  [NTicker sharedManager];
+        double price = [tk.data.quotes.USD.price doubleValue];
+        if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+            price = [tk.data.quotes.CNY.price doubleValue];
+        }
         if (price > 0) {
             _amount = currency * pow(10, 8) / price;
             u_int32_t minimal = (u_int32_t) pow(10, 4);

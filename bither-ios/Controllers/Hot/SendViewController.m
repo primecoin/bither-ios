@@ -96,22 +96,32 @@
     }
 }
 
-- (IBAction)sendPressed:(id)sender {
+- (IBAction)sendPressed:(id)sender {//捐赠
     if ([self checkValues]) {
+        if ([StringUtil compareString:[self getToAddress] compare:self.address.address]) {
+            [self showBannerWithMessage:NSLocalizedString(@"select_address_to_same_warn", nil) belowView:self.vTopBar];
+            return;
+        }
+        //判断发送地址和找零地址不能相同
         if ([StringUtil compareString:[self getToAddress] compare:self.dialogSelectChangeAddress.changeAddress.address]) {
             [self showBannerWithMessage:NSLocalizedString(@"select_change_address_change_to_same_warn", nil) belowView:self.vTopBar];
             return;
         }
+        
         [self hideKeyboard];
+        
         [dp showInWindow:self.view.window completion:^{
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                //判断判断输入密码和数据库密码是否相同
                 if (![[BTPasswordSeed getPasswordSeed] checkPassword:self.tfPassword.text]) {
                     [self showSendResult:NSLocalizedString(@"Password wrong.", nil) dialog:dp];
                     return;
                 }
-                u_int64_t value = self.amtLink.amount;
+                u_int64_t value = self.amtLink.amount;//货币计算链接量
                 NSError *error;
-                NSString *toAddress = [self getToAddress];
+                NSString *toAddress = [self getToAddress];//对方地址
+                //建立交易信息
                 BTTx *tx = [self.address txForAmounts:@[@(value)] andAddress:@[toAddress] andChangeAddress:self.dialogSelectChangeAddress.changeAddress.address andError:&error];
                 if (error) {
                     NSString *msg = [TransactionsUtil getCompleteTxForError:error];
@@ -121,11 +131,18 @@
                         [self showSendResult:NSLocalizedString(@"Send failed.", nil) dialog:dp];
                         return;
                     }
+                    //验证签名（签署给定交易中的任何输入，可以使用钱包中的私钥进行签名）
                     if ([self.address signTransaction:tx withPassphrase:self.tfPassword.text]) {
                         __block NSString *addressBlock = toAddress;
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            
                             [dp dismissWithCompletion:^{
                                 [dp changeToMessage:NSLocalizedString(@"Please wait…", nil)];
+                                if ([tx amountSentTo:toAddress]<1000000) {
+                                    [self showBannerWithMessage:NSLocalizedString(@"Send failed. Sending coins this few will be igored.", nil) belowView:self.vTopBar];
+                                    return;
+                                }
+                                //发送交易验证
                                 DialogSendTxConfirm *dialog = [[DialogSendTxConfirm alloc] initWithTx:tx from:self.address to:addressBlock changeTo:self.dialogSelectChangeAddress.changeAddress.address delegate:self];
                                 [dialog showInWindow:self.view.window];
                             }];
@@ -144,7 +161,7 @@
 }
 
 
-- (void)onSendTxConfirmed:(BTTx *)tx {
+- (void)onSendTxConfirmed:(BTTx *)tx {//发送广播
     if (!tx) {
         return;
     }

@@ -134,7 +134,8 @@
         return;
     }
     IOS7ContainerViewController *container = [[IOS7ContainerViewController alloc] init];
-    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ColdAddressAdd"];
+//    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"ColdAddressAdd"];//关闭HD
+    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HotAddressAddPrivateKey"];
     [self presentViewController:container animated:YES completion:nil];
 }
 

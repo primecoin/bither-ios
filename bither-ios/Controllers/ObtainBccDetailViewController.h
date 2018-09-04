@@ -4,7 +4,7 @@
 //
 //  Created by 韩珍 on 2017/7/26.
 //  Copyright © 2017年 Bither. All rights reserved.
-//
+//  获得bcc详情页
 
 #import <UIKit/UIKit.h>
 #import "SendViewController.h"

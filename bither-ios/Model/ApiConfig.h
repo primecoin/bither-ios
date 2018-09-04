@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    ApiConfigBither = 0, ApiConfigBlockchainInfo = 1
+    ApiConfigBlockchainInfo = 0, ApiConfigBither = 1
 } ApiConfig;

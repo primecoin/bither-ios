@@ -15,7 +15,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+// 设置
 #import <Foundation/Foundation.h>
 #import "MKNetworkEngine.h"
 #import "BTSettings.h"
@@ -125,7 +125,7 @@ typedef enum {
 } KLineTimeType;
 
 typedef enum {
-    Normal = 10000, High = 20000, Higher = 50000, TenX = 100000, TwentyX = 200000
+    Normal = 1000000, High = 2000000, Higher = 5000000, TenX = 10000000, TwentyX = 20000000
 } TransactionFeeMode;
 
 typedef enum {
@@ -140,7 +140,7 @@ typedef enum {
     AddressNormal, AddressTxTooMuch, AddressSpecialAddress
 } AddressType;
 
-#define CustomErrorDomain @"www.bither.net"
+#define CustomErrorDomain @"www.primecoin.io"
 typedef enum {
 
     PasswordError = -1000,

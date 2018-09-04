@@ -5,7 +5,7 @@
 //  Created by 张陆军 on 2018/1/19.
 //  Copyright © 2018年 Bither. All rights reserved.
 //
-
+// 获得分叉币
 #import "GetForkCoinsController.h"
 #import "SettingListCell.h"
 #import "DialogEditPassword.h"

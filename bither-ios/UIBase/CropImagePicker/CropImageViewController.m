@@ -21,7 +21,7 @@
 #import "ImageCropView.h"
 
 @interface CropImageViewController ()
-@property(nonatomic, strong) NSDictionary *info;
+@property(nonatomic, strong) NSMutableDictionary *info;
 @property(nonatomic, strong) ImageCropView *icv;
 @end
 
@@ -29,7 +29,7 @@
 - (id)initWithInfo:(NSDictionary *)info {
     self = [super init];
     if (self) {
-        self.info = info;
+        self.info = [NSMutableDictionary dictionaryWithDictionary:info];
     }
     return self;
 }

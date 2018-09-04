@@ -18,9 +18,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Ticker.h"
-
+#import "NTicker.h"
 @interface Market : NSObject
 @property(nonatomic, strong) Ticker *ticker;
+@property(nonatomic, strong) NTicker *nticker;
 @property(nonatomic, readwrite) MarketType marketType;
 
 - (instancetype)initWithMarketType:(MarketType)marketType;

@@ -15,7 +15,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+// 生成私钥
 #import "HotAddressAddPrivateKeyViewController.h"
 #import "BitherSetting.h"
 #import "DialogProgress.h"
@@ -81,10 +81,11 @@
 }
 
 - (UIViewController *)successDismissingViewController {
-    return self.parentViewController.presentingViewController.presentingViewController;
+//    return self.parentViewController.presentingViewController.presentingViewController;//关闭HD
+    return self.presentingViewController;
 }
 
-- (IBAction)generatePressed:(id)sender {
+- (IBAction)generatePressed:(id)sender {//生成秘钥
     if (self.btnXRandomCheck.selected && (
             [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusNotDetermined)
             ) {
@@ -93,7 +94,7 @@
             [d showInWindow:self.view.window];
         }];
     } else {
-        DialogPassword *d = [[DialogPassword alloc] initWithDelegate:self];
+        DialogPassword *d = [[DialogPassword alloc] initWithDelegate:self];//输入钱包密码
         [d showInWindow:self.view.window];
     }
 }
@@ -188,7 +189,7 @@
 
 @end
 
-@implementation HotAddressAddPrivateKeyViewController (UEntropy)
+@implementation HotAddressAddPrivateKeyViewController (UEntropy)//生成私钥，公钥， 钱包地址
 
 - (void)onUEntropyGeneratingWithController:(UEntropyViewController *)controller collector:(UEntropyCollector *)collector andPassword:(NSString *)password {
     UInt32 count = self.countToGenerate;
@@ -216,12 +217,13 @@
             if (controller.testShouldCancel) {
                 return;
             }
-
+            //私钥
             NSString *privateKeyString = [BTPrivateKeyUtil getPrivateKeyString:key passphrase:password];
             if (!privateKeyString) {
                 [controller onFailed];
                 return;
             }
+            //地址
             BTAddress *btAddress = [[BTAddress alloc] initWithKey:key encryptPrivKey:privateKeyString isSyncComplete:YES isXRandom:YES];
             [addresses addObject:btAddress];
             progress += itemProgress * kProgressEncryptRate;
@@ -238,6 +240,8 @@
 
     [collector stop];
     [KeyUtil addAddressList:addresses];
+    BTAddress *btAddress =addresses[0];
+    NSLog(@"生成的钱包地址-----%@",btAddress.address);
     while ([[NSDate new] timeIntervalSince1970] - startGeneratingTime < kMinGeneratingTime) {
 
     }

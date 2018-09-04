@@ -115,6 +115,10 @@
 
 - (IBAction)sendPressed:(id)sender {
     if ([self checkValues]) {
+        if ([StringUtil compareString:[self getToAddress] compare:self.address.address]) {
+            [self showBannerWithMessage:NSLocalizedString(@"select_address_to_same_warn", nil) belowView:self.vTopBar];
+            return;
+        }
         if ([StringUtil compareString:[self getToAddress] compare:self.dialogSelectChangeAddress.changeAddress.address]) {
             [self showBannerWithMessage:NSLocalizedString(@"select_change_address_change_to_same_warn", nil) belowView:self.vTopBar];
             return;
@@ -318,7 +322,7 @@
 - (BOOL)checkValues {
     BOOL validAddress = [[self getToAddress] isValidBitcoinAddress];
     int64_t amount = self.amtLink.amount;
-    return validAddress && amount > 0;
+    return validAddress && amount >0;
 }
 
 - (void)check {

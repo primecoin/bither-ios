@@ -95,7 +95,7 @@
 "Invalid password" = "密碼錯誤";
 
 /* No comment provided by engineer. */
-"Length: 6 - 43" = "長度: 6 - 43";
+"Length: 6 - 43" = "長度:6-43:數字/字母/符號組合";
 
 /* No comment provided by engineer. */
 "Me" = "我的地址";
@@ -179,7 +179,7 @@
 "Scan %@\nPage %d, Total %d" = "掃描%1$@\n第%2$d頁, 共%3$d頁";
 
 /* No comment provided by engineer. */
-"Scan Bitcoin Address" = "掃描比特幣地址";
+"Scan Bitcoin Address" = "掃描質數幣地址";
 
 "Scan Bitpie Split Coin Address" = "掃描比特派%@地址";
 
@@ -265,7 +265,7 @@
 "unsigned tx QR code" = "未簽名交易二維碼";
 
 /* No comment provided by engineer. */
-"View on Blockchain.info" = "在Blockchain.info上查看";
+"View on Bchain.info" = "在Bchain.info上查看";
 
 /* No comment provided by engineer. */
 "Watch Only QR Code" = "監控二維碼";
@@ -326,7 +326,7 @@
 "From Gallery"="來自圖庫";
 "Change Password"="修改密碼";
 "Import Private Key"="導入私鑰";
-"From Bither Private Key QR Code"="來自比太私鑰二維碼";
+"From Bither Private Key QR Code"="來自質數幣私鑰二維碼";
 "From Private Key Text"="來自私鑰明文";
 "Enter your private key text"="輸入私鑰明文";
 "Not match private key format"="不符合私鑰格式";
@@ -341,7 +341,7 @@
 
 
 "Scan Private Key QR Code"="掃描私鑰二維碼";
-"Scan QR code No.1 provided by Bither"="請掃描比太提供的第1張二維碼";
+"Scan QR code No.1 provided by Bither"="請掃描質數幣提供的第1張二維碼";
 "Not match private key format"="不符合私鑰格式";
 "Enter your private key text"="輸入私鑰明文";
 "private key"="私鑰";
@@ -350,7 +350,7 @@
 
 //donate
 "Select an address to donate"="請選擇用來捐贈的地址";
-"No bitcoins available for donation."="您沒有可以用來捐贈的比特幣";
+"No bitcoins available for donation."="您沒有可以用來捐贈的質數幣";
 "Donate to developers"="捐贈給開發者";
 "Donate"="捐贈";
 
@@ -379,11 +379,11 @@
 "Advance Options"="高級選項";
 
 
-"Send failed. Sending coins this few will be igored."="發送失敗. 這樣小額的交易會被忽略.";
-"%@ BTC to be confirmed."="%@ BTC 正在等待確認.";
+"Send failed. Sending coins this few will be igored."="發送失敗. 這樣小額(<0.01)的交易會被忽略.";
+"%@ BTC to be confirmed."="%@ XPM 正在等待確認.";
 "Send failed. You don\'t have enough coins available for transaction fee."="發送失敗. 可用余額不足以支付手續費.";
 "Send failed. You don\'t have enough coins available."="發送失敗. 可用余額不足.";
-"Send failed. Lack of %@ BTC."="發送失敗. 可用余額中缺少 %@ BTC. ";
+"Send failed. Lack of %@ BTC."="發送失敗. 可用余額中缺少 %@ XPM. ";
 "Send failed. Transaction size is to large."="發送失敗. 交易大小过大.";
 "Please wait for another confirmation."="請等待壹個新的確認後再交易.";
 
@@ -454,7 +454,7 @@
 
 /* trash */
 "trash_private_key" = "移入回收站";
-"trash_with_money_warn" = "這個地址上還有比特幣.\n您不能把它移入回收站.";
+"trash_with_money_warn" = "這個地址上還有質數幣.\n您不能把它移入回收站.";
 "trashing_private_key" = "正在移入回收站";
 "trash_can" = "回收站";
 "trash_can_empty" = "回收站空";
@@ -482,7 +482,7 @@
 "pin_code_setting_change_new_repeat_msg" = "再次輸入您的新 PIN 碼";
 "pin_code_setting_change_repeat_wrong" = "兩次輸入的新 PIN 碼不同";
 "pin_code_setting_close_wrong" = "PIN 碼錯誤";
-"pin_code_touch_id_promot" = "解鎖比太";
+"pin_code_touch_id_promot" = "解鎖質數幣";
 
 /* keychain backup */
 "keychain_backup" = "iCloud 鑰匙串備份";
@@ -510,7 +510,7 @@
 "qr_code_quality_setting_low" = "較低";
 
 // Blockmeta
-"address_option_view_on_btc" = "在btc.com上查看";
+"address_option_view_on_btc" = "在Bchain.info上查看";
 
 // Network Monitor Options
 "network_monitor_clear_peers" = "清空節點";
@@ -528,6 +528,7 @@
 "sign_transaction_change_to_label" = "找零到:";
 "sign_transaction_change_amount_label" = "找零金額:";
 "select_change_address_change_to_same_warn" = "發送到的地址和找零地址不能相同";
+"select_address_to_same_warn" = "不能付款給自己";
 
 // Sign Message
 "sign_message_activity_name" = "簽名消息";
@@ -547,10 +548,10 @@
 "verify_message_signature_verify_button_reverify" = "重新驗證";
 "sign_message_setting_name" = "消息簽名";
 
-"add_address_watch_only_scanned_address_warning" = "比太只能監控冷錢包監控二維碼,\n不能監控其它地址";
+"add_address_watch_only_scanned_address_warning" = "質數幣只能監控冷錢包監控二維碼,\n不能監控其它地址";
 
 // Cold Add HDM
-"hdm_seed_generation_notice" = "HDM 結合了分層確定性和多重簽名兩種技術.\n\nHDM 運用多重簽名技術來避免分層確定性錢包的缺陷.\n\n比太使用 2/3 的多重簽名來生成 HDM 地址.\n\n三個私鑰分別由熱錢包, 冷錢包和 HDM 服務器上的確定性種子生成.";
+"hdm_seed_generation_notice" = "HDM 結合了分層確定性和多重簽名兩種技術.\n\nHDM 運用多重簽名技術來避免分層確定性錢包的缺陷.\n\質數幣使用 2/3 的多重簽名來生成 HDM 地址.\n\n三個私鑰分別由熱錢包, 冷錢包和 HDM 服務器上的確定性種子生成.";
 "hdm_cold_pub_key_qr_code_name" = "HDM 冷帳號二維碼";
 "hdm_server_qr_code_name" = "HDM 服務器二維碼";
 "hdm_cold_seed_qr_code" = "HDM 冷種子二維碼";
@@ -602,7 +603,7 @@
 "hdm_keychain_recovery_setting_name"="HDM 帳號恢復";
 "hdm_keychain_recovery_warn"="HDM 賬號正在恢復中";
 "hdm_keychain_recovery_no_addresses"="沒有需要恢復的 HDM 地址";
-"hdm_keychain_recovery_message"="請盡快轉移走 HDM 恢復帳號中的比特幣";
+"hdm_keychain_recovery_message"="請盡快轉移走 HDM 恢復帳號中的質數幣";
 "address_group_hdm_recovery"="HDM 恢復";
 "activity_name_hdm_import_word_list"="導入 HDM 密語";
 "hdm_import_word_list_input_hint"="下壹單詞";
@@ -611,7 +612,7 @@
 "hdm_import_word_list_delete"="刪除";
 "hdm_import_word_list_replace"="替換";
 
-"not_verify_bither_private_key_qrcode"="不是比太私鑰二維碼";
+"not_verify_bither_private_key_qrcode"="不是質數幣私鑰二維碼";
 
 // hdm reset server password
 "hdm_reset_server_password_password_wrong_confirm" = "HDM 服務器授權失效.\n使用 HDM 冷重新授權?";
@@ -680,6 +681,9 @@
 "bither_team_address" = "開發者地址";
 "bither_team_address_copied" = "開發者地址已複製";
 
+//Generate a secure private key
+"Generate_secure_private_key" = "生成安全私鑰";
+
 // vanity address length
 "vanity_address_length" = "榮耀地址位數";
 "vanity_address_none" = "無";
@@ -689,8 +693,8 @@
 "payment_address_none" = "無";
 
 // first run dialog
-"first_run_dialog_title" = "為了保護您的比特幣:";
-"first_run_dialog_line_1" = "請不要卸載比太錢包";
+"first_run_dialog_title" = "為了保護您的質數幣:";
+"first_run_dialog_line_1" = "請不要卸載質數幣錢包";
 "first_run_dialog_line_2" = "請牢記您的密碼";
 
 // hd cold
@@ -725,12 +729,12 @@
 "total_balance_hide_hide_all" = "隱藏";
 
 // Reload Tx Chose From Bither.net or BlockChain.info
-"reset_tx_from_bither" = "來自比太 API";
+"reset_tx_from_bither" = "來自質數幣 API";
 "reset_tx_from_blockchain" ="來自Blockchain.info API";
 
 // Import private key HDAaccount HDMAccount Bip38PrivateKey choose style
 "get_data_from_blockchain" = "從Blockchain.info獲取資訊";
-"get_data_from_bither" = "從比太獲取資訊";
+"get_data_from_bither" = "從質數幣獲取資訊";
 
 // API Config
 "setting_api_config" = "API 設定";

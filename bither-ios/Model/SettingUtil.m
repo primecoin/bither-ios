@@ -26,14 +26,14 @@
 #import "AvatarSetting.h"
 #import "MonitorSetting.h"
 #import "MonitorHDAccountSetting.h"
-
+#import "ImportPrivateKeySetting.h"
 
 @implementation SettingUtil
 
 + (NSArray *)hotSettings {
     NSMutableArray *array = [NSMutableArray new];
     [array addObject:[MonitorSetting getMonitorSetting]];
-    [array addObject:[MonitorHDAccountSetting getMonitorHDAccountSetting]];
+//    [array addObject:[MonitorHDAccountSetting getMonitorHDAccountSetting]];//关闭HD
     [array addObject:[Setting getBitcoinUnitSetting]];
     [array addObject:[Setting getExchangeSetting]];
     [array addObject:[Setting getMarketSetting]];
@@ -41,9 +41,10 @@
     if ([BTAddressManager instance].allAddresses.count == 0 && [BTAddressManager instance].trashAddresses.count == 0 && ![BTAddressManager instance].hdmKeychain && ![BTAddressManager instance].hasHDAccountHot && ![BTAddressManager instance].hasHDAccountMonitored) {
         [array addObject:[Setting getSwitchToColdSetting]];
     }
+    [array addObject:[ImportPrivateKeySetting getImportPrivateKeySetting]];
     [array addObject:[AvatarSetting getAvatarSetting]];
     [array addObject:[Setting getCheckSetting]];
-    //[array addObject:[DonationSetting getDonateSetting]];
+//    [array addObject:[DonationSetting getDonateSetting]];
     [array addObject:[Setting getAdvanceSetting]];
     return array;
 }
@@ -57,6 +58,7 @@
         [array addObject:[Setting getColdMonitorSetting]];
     }
     [array addObject:[Setting getBitcoinUnitSetting]];
+    [array addObject:[ImportPrivateKeySetting getImportPrivateKeySetting]];
     [array addObject:[Setting getAdvanceSetting]];
     return array;
 }

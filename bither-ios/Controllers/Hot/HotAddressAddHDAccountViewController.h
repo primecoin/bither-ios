@@ -17,7 +17,7 @@
 //  limitations under the License.
 //
 //  Created by 宋辰文 on 15/4/24.
-//
+//  生成新的hd账户
 
 #import <UIKit/UIKit.h>
 

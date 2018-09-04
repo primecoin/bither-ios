@@ -14,7 +14,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+//  热钱包设置界面
 
 #import "OptionHotViewController.h"
 #import "UserDefaultsUtil.h"
@@ -42,7 +42,7 @@
     if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
         self.tableView.layoutMargins = UIEdgeInsetsZero;
     }
-    NSString *version = [NSString stringWithFormat:@"Bither Hot %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:CFBundleShortVersionString]];
+    NSString *version = [NSString stringWithFormat:@"Primecoin Hot %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:CFBundleShortVersionString]];
     [self configureHeaderAndFooter:self.tableView background:ColorBg isHot:YES version:version];
     [self reload];
     

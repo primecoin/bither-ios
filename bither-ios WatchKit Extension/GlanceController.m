@@ -72,7 +72,7 @@
     [self refreshTicker];
 }
 
--(void)refreshTrending{
+-(void)refreshTrending{//刷新图表
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshTrending) object:nil];
     [WatchTrendingGraphicData getTrendingGraphicData:market.marketType callback:^(WatchTrendingGraphicData *data) {
         [self.ivTrending setImage:[tDrawer animatingImageFromData:[WatchTrendingGraphicData getEmptyData] toData:data]];

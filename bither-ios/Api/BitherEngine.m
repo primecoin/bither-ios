@@ -25,24 +25,23 @@ static MKNetworkEngine *bcNetworkEngine;
 static MKNetworkEngine *hdmNetworkEngine;
 static MKNetworkEngine *blockChainEngine;
 static MKNetworkEngine *chainBtcComEngine;
+static MKNetworkEngine *primeMarketEngine;
 @implementation BitherEngine
-+ (BitherEngine *)instance {
++ (BitherEngine *)instance {//域名选择
     @synchronized (self) {
         if (bitherEngine == nil) {
             bitherEngine = [[self alloc] init];
             NSMutableDictionary *headerFields = [NSMutableDictionary dictionary];
             [headerFields setValue:@"application/json" forKey:@"Accept"];
             userNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:@"bu.getcai.com" customHeaderFields:headerFields];
-            statsNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:@"bs.getcai.com" customHeaderFields:headerFields];
+            statsNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:@"graphs2.coinmarketcap.com" customHeaderFields:headerFields];//图表相关
             bitcoinNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:@"b.getcai.com" customHeaderFields:headerFields];
-            bcNetworkEngine = [[MKNetworkEngine alloc]
-                initWithHostName:@"bc.bither.net" customHeaderFields:headerFields];
+            bcNetworkEngine = [[MKNetworkEngine alloc]initWithHostName:@"bc.bither.net" customHeaderFields:headerFields];
             hdmNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:@"hdm.bither.net" customHeaderFields:headerFields];
-            blockChainEngine = [[MKNetworkEngine alloc]
-                initWithHostName:@"blockchain.info" customHeaderFields:headerFields];
-            chainBtcComEngine = [[MKNetworkEngine alloc]
-                initWithHostName:@"chain.btc.com" customHeaderFields:headerFields];
-            
+            //区块相关
+            blockChainEngine = [[MKNetworkEngine alloc]initWithHostName:@"192.168.1.10" customHeaderFields:headerFields];
+            chainBtcComEngine = [[MKNetworkEngine alloc]initWithHostName:@"chain.btc.com" customHeaderFields:headerFields];
+            primeMarketEngine = [[MKNetworkEngine alloc]initWithHostName:@"api.coinmarketcap.com" customHeaderFields:headerFields];
         }
     }
     return bitherEngine;
@@ -73,14 +72,17 @@ static MKNetworkEngine *chainBtcComEngine;
 - (MKNetworkEngine *)getChainBtcComEngine{
     return chainBtcComEngine;
 }
+- (MKNetworkEngine *)getPrimeMarketEngine{
+    return primeMarketEngine;
+}
 - (NSArray *)getCookies {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", userNetworkEngine.readonlyHostName]]];
     return cookies;
 }
 
 - (void)setEngineCookie {
-    [self setCookieOfDomain:statsNetworkEngine.readonlyHostName];
-    [self setCookieOfDomain:bitcoinNetworkEngine.readonlyHostName];
+    [self setCookieOfDomain:statsNetworkEngine.readonlyHostName];//根据当前网络域名设置cookie
+    [self setCookieOfDomain:bitcoinNetworkEngine.readonlyHostName];//根据节点的域名设置cookie
     
 }
 

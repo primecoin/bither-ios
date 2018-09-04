@@ -95,7 +95,7 @@
 "Invalid password" = "密码错误";
 
 /* No comment provided by engineer. */
-"Length: 6 - 43" = "长度: 6 - 43";
+"Length: 6 - 43" = "长度:6-43:数字/字母/符号组合";
 
 /* No comment provided by engineer. */
 "Me" = "我的地址";
@@ -179,7 +179,7 @@
 "Scan %@\nPage %d, Total %d" = "扫描 %1$@\n第%2$d页, 共%3$d页";
 
 /* No comment provided by engineer. */
-"Scan Bitcoin Address" = "扫描比特币地址";
+"Scan Bitcoin Address" = "扫描质数币地址";
 
 "Scan Bitpie Split Coin Address" = "扫描比特派%@地址";
 
@@ -265,7 +265,7 @@
 "unsigned tx QR code" = "未签名交易二维码";
 
 /* No comment provided by engineer. */
-"View on Blockchain.info" = "在Blockchain.info上查看";
+"View on Bchain.info" = "在Bchain.info上查看";
 
 /* No comment provided by engineer. */
 "Watch Only QR Code" = "监控二维码";
@@ -325,7 +325,7 @@
 "From Gallery"="来自图库";
 "Change Password"="修改密码";
 "Import Private Key"="导入私钥";
-"From Bither Private Key QR Code"="来自比太私钥二维码";
+"From Bither Private Key QR Code"="来自质数币私钥二维码";
 "From Private Key Text"="来自私钥明文";
 "Enter your private key text"="输入私钥明文";
 "Not match private key format"="不符合私钥格式";
@@ -340,7 +340,7 @@
 
 
 "Scan Private Key QR Code"="扫描私钥二维码";
-"Scan QR code No.1 provided by Bither"="请扫描比太提供的第1张二维码";
+"Scan QR code No.1 provided by Bither"="请扫描质数币提供的第1张二维码";
 "Not match private key format"="不符合私钥格式";
 "Enter your private key text"="输入私钥明文";
 "private key"="私钥";
@@ -348,7 +348,7 @@
 
 //donate
 "Select an address to donate"="请选择用来捐赠的地址";
-"No bitcoins available for donation."="您没有可以用来捐赠的比特币";
+"No bitcoins available for donation."="您没有可以用来捐赠的质数币";
 "Donate to developers"="捐赠给开发者";
 "Donate"="捐赠";
 
@@ -377,11 +377,11 @@
 
 "Advance Options"="高级选项";
 
-"Send failed. Sending coins this few will be igored."="发送失败. 这样小额的交易会被忽略.";
-"%@ BTC to be confirmed."="%@ BTC 正在等待确认.";
+"Send failed. Sending coins this few will be igored."="发送失败. 这样小额(<0.01)的交易会被忽略.";
+"%@ BTC to be confirmed."="%@ XPM 正在等待确认.";
 "Send failed. You don\'t have enough coins available for transaction fee."="发送失败. 可用余额不足以支付手续费.";
 "Send failed. You don\'t have enough coins available."="发送失败. 可用余额不足.";
-"Send failed. Lack of %@ BTC."="发送失败. 可用余额中缺少 %@ BTC. ";
+"Send failed. Lack of %@ BTC."="发送失败. 可用余额中缺少 %@ XPM. ";
 "Send failed. Transaction size is to large."="发送失败. 交易大小过大.";
 "Please wait for another confirmation."="请等待一个新的确认后再交易.";
 
@@ -453,7 +453,7 @@
 
 /* trash */
 "trash_private_key" = "移入回收站";
-"trash_with_money_warn" = "这个地址内还有比特币.\n您不能把它移入回收站.";
+"trash_with_money_warn" = "这个地址内还有质数币.\n您不能把它移入回收站.";
 "trashing_private_key" = "正在移入回收站";
 "trash_can" = "回收站";
 "trash_can_empty" = "回收站空";
@@ -481,7 +481,7 @@
 "pin_code_setting_change_new_repeat_msg" = "再次输入您的新 PIN 码";
 "pin_code_setting_change_repeat_wrong" = "两次输入的新 PIN 码不同";
 "pin_code_setting_close_wrong" = "PIN 码错误";
-"pin_code_touch_id_promot" = "解锁比太";
+"pin_code_touch_id_promot" = "解锁质数币";
 
 /* keychain backup */
 "keychain_backup" = "iCloud 钥匙串备份";
@@ -509,7 +509,7 @@
 "qr_code_quality_setting_low" = "较低";
 
 // Blockmeta
-"address_option_view_on_btc" = "在btc.com上查看";
+"address_option_view_on_btc" = "在Bchain.info上查看";
 
 // Network Monitor Options
 "network_monitor_clear_peers" = "清空节点";
@@ -527,6 +527,7 @@
 "sign_transaction_change_to_label" = "找零到:";
 "sign_transaction_change_amount_label" = "找零金额:";
 "select_change_address_change_to_same_warn" = "发送到的地址和找零地址不能相同";
+"select_address_to_same_warn" = "不能付款给自己";
 
 // Sign Message
 "sign_message_activity_name" = "签名消息";
@@ -546,10 +547,10 @@
 "verify_message_signature_verify_button_reverify" = "重新验证";
 "sign_message_setting_name" = "消息签名";
 
-"add_address_watch_only_scanned_address_warning" = "比太只能监控冷钱包监控二维码,\n不能监控其它地址";
+"add_address_watch_only_scanned_address_warning" = "质数币只能监控冷钱包监控二维码,\n不能监控其它地址";
 
 // Cold Add HDM
-"hdm_seed_generation_notice" = "HDM 结合了分层确定性和多重签名两种技术.\n\nHDM 运用多重签名技术来避免分层确定性钱包的缺陷.\n\n比太使用 2/3 的多重签名来生成 HDM 地址.\n\n三个私钥分别由热钱包, 冷钱包和 HDM 服务器上的确定性种子生成.";
+"hdm_seed_generation_notice" = "HDM 结合了分层确定性和多重签名两种技术.\n\nHDM 运用多重签名技术来避免分层确定性钱包的缺陷.\n\质数币使用 2/3 的多重签名来生成 HDM 地址.\n\n三个私钥分别由热钱包, 冷钱包和 HDM 服务器上的确定性种子生成.";
 "hdm_cold_pub_key_qr_code_name" = "HDM 冷帐号二维码";
 "hdm_server_qr_code_name" = "HDM 服务器二维码";
 "hdm_cold_seed_qr_code" = "HDM 冷种子二维码";
@@ -601,7 +602,7 @@
 "hdm_keychain_recovery_setting_name"="HDM 帐号恢复";
 "hdm_keychain_recovery_warn"="HDM 账号正在恢复中";
 "hdm_keychain_recovery_no_addresses"="没有需要恢复的 HDM 地址";
-"hdm_keychain_recovery_message"="请尽快转移走 HDM 恢复帐号中的比特币";
+"hdm_keychain_recovery_message"="请尽快转移走 HDM 恢复帐号中的质数币";
 "address_group_hdm_recovery"="HDM 恢复";
 "activity_name_hdm_import_word_list"="导入 HDM 密语";
 "hdm_import_word_list_input_hint"="下一单词";
@@ -610,7 +611,7 @@
 "hdm_import_word_list_delete"="删除";
 "hdm_import_word_list_replace"="替换";
 
-"not_verify_bither_private_key_qrcode"="不是比太私钥二维码";
+"not_verify_bither_private_key_qrcode"="不是质数币私钥二维码";
 
 // hdm reset server password
 "hdm_reset_server_password_password_wrong_confirm" = "HDM 服务器授权失效.\n使用 HDM 冷重新授权?";
@@ -679,6 +680,9 @@
 "bither_team_address" = "开发者地址";
 "bither_team_address_copied" = "开发者地址已复制";
 
+//Generate a secure private key
+"Generate_secure_private_key" = "生成安全私钥";
+
 // vanity address length
 "vanity_address_length" = "荣耀地址位数";
 "vanity_address_none" = "无";
@@ -688,8 +692,8 @@
 "payment_address_none" = "无";
 
 // first run dialog
-"first_run_dialog_title" = "为了保护您的比特币:";
-"first_run_dialog_line_1" = "请不要卸载比太钱包";
+"first_run_dialog_title" = "为了保护您的质数币:";
+"first_run_dialog_line_1" = "请不要卸载质数币钱包";
 "first_run_dialog_line_2" = "请牢记您的密码";
 
 // hd cold
@@ -724,12 +728,12 @@
 "total_balance_hide_hide_all" = "隐藏";
 
 // Reload Tx Chose From Bither.net or BlockChain.info
-"reset_tx_from_bither" = "来自比太 API";
+"reset_tx_from_bither" = "来自质数币 API";
 "reset_tx_from_blockchain" ="来自Blockchain.info API";
 
 // Import private key HDAaccount HDMAccount Bip38PrivateKey choose style
 "get_data_from_blockchain" = "从Blockchain.info获取信息";
-"get_data_from_bither" = "从比太获取信息";
+"get_data_from_bither" = "从质数币获取信息";
 
 // API Config
 "setting_api_config" = "API 设置";

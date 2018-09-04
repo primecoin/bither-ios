@@ -22,7 +22,7 @@
 #import "BitherTime.h"
 #import "TrendingGraphicView.h"
 #import "BackgroundTransitionView.h"
-
+#import "NTicker.h"
 #define DEFAULT_DISPALY_PRICE @"--"
 
 @interface MarketViewController () <UITableViewDataSource, UITableViewDelegate> {
@@ -46,7 +46,6 @@
 @property(weak, nonatomic) IBOutlet UIImageView *ivProgress;
 @property(weak, nonatomic) IBOutlet TrendingGraphicView *vTrending;
 
-
 @property(weak, nonatomic) Market *market;
 
 @end
@@ -62,7 +61,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.market.ticker == nil) {
+    if (self.market.nticker == nil) {
         [[BitherTime instance] resume];
     }
     [self reload];
@@ -70,7 +69,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupTableView];
     self.market = [MarketUtil getDefaultMarket];
     [self reload];
@@ -113,29 +111,39 @@
 
 - (void)reload {
     [self.tableView reloadData];
-    self.lbMarketName.text = [self.market getName];
+    self.lbMarketName.text = self.market.nticker.data.name;
     if (_isAppear) {
         self.matketDetailView.backgroundColor = [GroupUtil getMarketColor:self.market.marketType];
     } else {
         [self.matketDetailView setBackgroundColorWithoutTransition:[GroupUtil getMarketColor:self.market.marketType]];
     }
-    if (self.market.ticker) {
-        Ticker *ticker = self.market.ticker;
+    if (self.market.nticker) {
+        NTicker *nticker = self.market.nticker;
+        NTickerConvert *conDetl = nticker.data.quotes.USD;
+        if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+            conDetl = nticker.data.quotes.CNY;
+        }
         self.lbSymbol.text = [BitherSetting getCurrencySymbol:[[UserDefaultsUtil instance] getDefaultCurrency]];
-        self.lbNew.text = [StringUtil formatDouble:[ticker getDefaultExchangePrice]];
-        self.lbHigh.text = [StringUtil formatPrice:[ticker getDefaultExchangeHigh]];
-        self.lbLow.text = [StringUtil formatPrice:[ticker getDefaultExchangeLow]];
-        self.lbAmount.text = [StringUtil formatDouble:ticker.amount];
-        self.lbBuy.text = [NSString stringWithFormat:NSLocalizedString(@"Buy: %@", nil), [StringUtil formatPrice:[ticker getDefaultExchangeBuy]]];
-        self.lbSell.text = [NSString stringWithFormat:NSLocalizedString(@"Sell: %@", nil), [StringUtil formatPrice:[ticker getDefaultExchangeSell]]];
+        self.lbNew.text = [StringUtil formatDouble:[conDetl.price doubleValue]];
+//        self.lbHigh.text = [StringUtil formatPrice:[conDetl.price doubleValue]*(1+[nticker.data.quotes.USD.percent_change_24h doubleValue]/100)];
+        
+//        self.lbLow.text = [StringUtil formatPrice:[conDetl.price doubleValue]];
+        self.lbAmount.text = [NSString stringWithFormat:@"%.2f",[self.market.nticker.data.total_supply doubleValue]];
+//        self.lbBuy.text = [NSString stringWithFormat:NSLocalizedString(@"Buy: %@", nil), [StringUtil formatPrice:[nticker.data.circulating_supply doubleValue]]];
+//        self.lbSell.text = [NSString stringWithFormat:NSLocalizedString(@"Sell: %@", nil), [StringUtil formatPrice:[nticker.data.circulating_supply doubleValue]]];
+        self.lbHigh.text = @"";
+        self.lbl24H.text = @"";
+        self.lbLow.text = @"";
+        self.lbBuy.text = @"";
+        self.lbSell.text = @"";
     } else {
         self.lbSymbol.text = @"";
         self.lbNew.text = DEFAULT_DISPALY_PRICE;
-        self.lbHigh.text = DEFAULT_DISPALY_PRICE;
-        self.lbLow.text = DEFAULT_DISPALY_PRICE;
+        self.lbHigh.text = @"";
+        self.lbLow.text = @"";
         self.lbAmount.text = DEFAULT_DISPALY_PRICE;
-        self.lbBuy.text = DEFAULT_DISPALY_PRICE;
-        self.lbSell.text = DEFAULT_DISPALY_PRICE;
+        self.lbBuy.text = @"";
+        self.lbSell.text = @"";
     }
     [self positionViews];
     if (_isAppear) {
@@ -170,7 +178,7 @@
     frame.size.width = width;
     self.vRightContainer.frame = frame;
 
-    self.vTrending.frame = CGRectMake(CGRectGetMaxX(self.vLeftContainer.frame) + 8, self.vLeftContainer.frame.origin.y, self.vRightContainer.frame.origin.x - CGRectGetMaxX(self.vLeftContainer.frame) - 16, self.vLeftContainer.frame.size.height);
+    self.vTrending.frame = CGRectMake(CGRectGetMaxX(self.vLeftContainer.frame), self.vLeftContainer.frame.origin.y-16, self.vRightContainer.frame.origin.x - CGRectGetMaxX(self.vLeftContainer.frame), self.vLeftContainer.frame.size.height);
 }
 
 - (void)moveProgress {
@@ -188,12 +196,13 @@
 #pragma mark ------ tableView delegate and datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [MarketUtil getMarkets].count;
+//    return [MarketUtil getMarkets].count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MarketListCell *cell = (MarketListCell *) [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [cell setMarket:[[MarketUtil getMarkets] objectAtIndex:indexPath.row]];
+    [cell setMarket:self.market];
     return cell;
 }
 

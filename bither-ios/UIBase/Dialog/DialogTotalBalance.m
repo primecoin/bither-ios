@@ -63,7 +63,11 @@
     hot = 0;
     cold = 0;
     total = 0;
-    price = [MarketUtil getDefaultNewPrice];
+    NTicker *tk =  [NTicker sharedManager];
+    price = [tk.data.quotes.USD.price doubleValue];
+    if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+        price = [tk.data.quotes.CNY.price doubleValue];
+    }
     NSArray *allAddresses = [BTAddressManager instance].allAddresses;
     for (BTAddress *a in allAddresses) {
         if (a.isHDM) {

@@ -75,6 +75,7 @@
     NSArray *inAddresses = [tx getInAddresses];
     _address = address;
     _addresses = [[NSMutableDictionary alloc] init];
+    NSMutableArray *bigArr = [NSMutableArray arrayWithCapacity:0];
     self.btnAmount.frameChangeListener = self;
     int64_t amount = [tx deltaAmountFrom:address];
     [self.btnAmount setAmount:amount];
@@ -86,7 +87,10 @@
         for (int k = 0; k < count; k++) {
             NSObject *ai = inAddresses[k];
             if (ai == [NSNull null]) {
-                ai = @"Coinbase";
+                ai = @"---";
+            }
+            if (tx.isCoinBase) {
+                ai = @"coinBase";
             }
             if (![StringUtil compareString:address.address compare:(NSString *) ai] && a.length < 30) {
                 a = (NSString *) ai;
@@ -103,6 +107,9 @@
                 value = newValue;
             }
             _addresses[(NSString *) ai] = value;
+            if (![bigArr containsObject:(NSString *) ai]) {
+                [bigArr addObject:(NSString *) ai];
+            }
         }
     } else {
         NSUInteger count = tx.outs.count;
@@ -124,17 +131,27 @@
                     value = newValue;
                 }
                 _addresses[(NSString *) ai] = value;
+                if (![bigArr containsObject:(NSString *) ai]) {
+                    [bigArr addObject:(NSString *) ai];
+                }
             }
         }
     }
-    _sortedAddresses = [_addresses.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-        if ([StringUtil compareString:obj1 compare:_address.address]) {
-            return NSOrderedDescending;
-        } else if ([StringUtil compareString:obj2 compare:_address.address]) {
-            return NSOrderedAscending;
-        }
-        return NSOrderedSame;
-    }];
+    _sortedAddresses =bigArr;
+//    [ sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+//        if ([StringUtil compareString:obj1 compare:_address.address]) {
+//            return NSOrderedDescending;
+//        } else if ([StringUtil compareString:obj2 compare:_address.address]) {
+//            return NSOrderedAscending;
+//        }
+//        return NSOrderedSame;
+//    }];
+    if ([StringUtil compareString:[_sortedAddresses firstObject] compare:@"---"] && _sortedAddresses.count>1) {
+        a = @"---";
+    }
+    if ([StringUtil compareString:@"---" compare:(NSString *) a] && _sortedAddresses.count==1 && [_sortedAddresses containsObject:address.address]) {
+        a = address.address;
+    }
     if (a.length > 4 && ![StringUtil compareString:a compare:@"Coinbase"]) {
         a = [StringUtil shortenAddress:a];
     }
@@ -172,7 +189,9 @@
         NSString *address = _sortedAddresses[row];
         if ([StringUtil compareString:address compare:_address.address]) {
             return NSLocalizedString(@"Me", nil);
-        } else {
+        }else if ([StringUtil compareString:address compare:@"---"]){
+            return NSLocalizedString(@"Unknown Address", nil);
+        }else {
             return address;
         }
     } else {

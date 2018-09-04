@@ -82,7 +82,7 @@
             return @"bits";
         case UnitBTCG:
         default:
-            return @"BTC";
+            return @"XPM";
     }
 }
 

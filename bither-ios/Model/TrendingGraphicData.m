@@ -69,7 +69,8 @@ static NSMutableDictionary *tgds;
 //    double rate=[ExchangeUtil getExchangeRate];
     NSMutableArray *prices = [NSMutableArray new];
     for (int i = 0; i < array.count; i++) {
-        double price = [[array objectAtIndex:i] doubleValue];
+        NSArray *arr = [array objectAtIndex:i];
+        double price = [[arr objectAtIndex:1] doubleValue];
         [prices addObject:@(price)];
         if (high < price) {
             high = price;

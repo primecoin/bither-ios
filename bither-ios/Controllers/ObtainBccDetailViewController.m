@@ -69,7 +69,7 @@
 static BTAddress * extracted(ObtainBccDetailViewController *object) {
     return object.btAddress;
 }
-
+//-获取比特派bcc地址
 - (IBAction)obtainPressed:(id)sender {
     NSString *checkValues = [self checkValues];
     if (checkValues) {
@@ -98,7 +98,7 @@ static BTAddress * extracted(ObtainBccDetailViewController *object) {
         }];
     }];
 }
-- (void) getBcdPreBlockHash{
+- (void) getBcdPreBlockHash{//获取块的哈希值
     dispatch_async(dispatch_get_main_queue(), ^{
         [[BitherApi instance] getBcdPreBlockHashCallback:^(NSDictionary *dict) {
             NSString* preBlockHash = dict[@"current_block_hash"];

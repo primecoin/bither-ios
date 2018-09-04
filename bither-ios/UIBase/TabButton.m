@@ -49,6 +49,8 @@
     return self;
 }
 
+
+
 - (void)initConfigure {
     self.backgroundColor = [UIColor clearColor];
 

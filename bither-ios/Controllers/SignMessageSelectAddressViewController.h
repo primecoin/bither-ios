@@ -4,7 +4,7 @@
 //
 //  Created by 韩珍 on 2017/7/21.
 //  Copyright © 2017年 Bither. All rights reserved.
-//
+//  选择签名地址列表
 
 #import <UIKit/UIKit.h>
 #import "BTHDAccountAddress.h"

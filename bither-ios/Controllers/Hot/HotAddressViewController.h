@@ -15,7 +15,7 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-
+//  热钱包地址列表
 #import <UIKit/UIKit.h>
 
 @interface HotAddressViewController : UIViewController

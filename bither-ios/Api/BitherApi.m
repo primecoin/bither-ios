@@ -22,6 +22,7 @@
 #import "AdUtil.h"
 #import "SplitCoinUtil.h"
 
+#import "NTicker.h"
 static BitherApi *piApi;
 #define kImgEn @"img_en"
 #define kImgZhCN @"img_zh_CN"
@@ -42,53 +43,19 @@ static BitherApi *piApi;
     }
     return piApi;
 }
-
-- (void)getSpvBlock:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
-    [self  get:BITHER_GET_ONE_SPVBLOCK_API withParams:nil networkType:BitherBC completed:^(MKNetworkOperation *completedOperation) {
-        if (![StringUtil isEmpty:completedOperation.responseString]) {
-            NSLog(@"spv: %s", [completedOperation.responseString UTF8String]);
-            NSDictionary *dict = [completedOperation responseJSON];
-            if (callback) {
-                callback(dict);
-            }
+//同步最新区块
+- (void)getSpvBlock:(DictResponseBlock)callback andErrorCallBack:(ErrorBlock)errorCallback {
+    [self AFGet:BLOCKCHAIN_INFO_GET_LASTST_BLOCK withParams:nil completed:^(id response) {
+        NSDictionary* responesData = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+        if (callback) {
+            callback(responesData);
         }
-    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
+    } andErrorCallback:^(NSError *error) {
         if (errorCallback) {
-            errorCallback(errorOp, error);
+            errorCallback(error);
         }
     }];
     
-}
-
--(void)getSpvBlockByBlockChain:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
-    [self execGetBlockChain:BLOCKCHAIN_INFO_GET_LASTST_BLOCK withParams:nil networkType:BlockChain completed:^(MKNetworkOperation *completedOperation) {
-        if (![StringUtil isEmpty:completedOperation.responseString]) {
-            NSDictionary *dict = [completedOperation responseJSON];
-            int latestHeight = [[dict objectForKey:@"height"] intValue];
-            int height = 0;
-            if (latestHeight % 2016 !=0){
-                height = latestHeight - (latestHeight%2016);
-            }else {
-                height = latestHeight;
-            }
-            [self execGetBlockChain:[NSString stringWithFormat:BLOCKCHAIN_GET_ONE_SPVBLOCK_API, height] withParams:nil networkType:BlockChain completed:^(MKNetworkOperation *completedOpera) {
-                NSLog(@"blockchain spv: %s", [completedOpera.responseString UTF8String]);
-                NSDictionary *dic = [completedOpera responseJSON];
-                NSDictionary * block = [[dic objectForKey:@"blocks"] objectAtIndex:0];
-                if (callback) {
-                    callback(block);
-                }
-            } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
-                if (errorCallback) {
-                    errorCallback(errorOp, error);
-                }
-            } ssl:NO];
-        }
-    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
-        if (errorCallback) {
-            errorCallback(errorOp, error);
-        }
-    } ssl:NO];
 }
 
 - (void)getInSignaturesApi:(NSString *)address fromBlock:(int)blockNo callback:(IdResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
@@ -105,12 +72,15 @@ static BitherApi *piApi;
     }];
     
 }
-
+//获取图表数据
 - (void)getExchangeTrend:(MarketType)marketType callback:(ArrayResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
-    NSString *url = [NSString stringWithFormat:BITHER_TREND_URL, [GroupUtil getMarketValue:marketType]];
+    NSString *url = [NSString stringWithFormat:BITHER_TREND_URL];
     [self          get:url withParams:nil networkType:BitherStats completed:^(MKNetworkOperation *completedOperation) {
+        NSDictionary *dict = completedOperation.responseJSON;
+        NSArray *arr = [NSArray arrayWithArray:[dict objectForKey:@"market_cap_by_available_supply"]];
+        
         if (callback) {
-            callback(completedOperation.responseJSON);
+            callback([arr subarrayWithRange:NSMakeRange(arr.count-25, 25)]);
         }
         
     } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
@@ -123,51 +93,60 @@ static BitherApi *piApi;
 - (void)getExchangeDepth:(MarketType)marketType callback:(ArrayResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
     //[];
 }
-#pragma mark - getTransactionApiFromBlockChain
+#pragma mark - getTransactionApiFromBlockChain//刷新账户数据（分页问题）
 - (void)getTransactionApiFromBlockChain:(NSString *)address withPage:(int)page callback:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback{
     NSString *singeTxUrl = [NSString stringWithFormat:BLOCK_INFO_ADDRESS_TX_URL,address,page];
-    //NSLog(@"%@",singeTxUrl);
-    [self getBlockChainTx:singeTxUrl withParams:nil networkType:BlockChain completed:^(MKNetworkOperation *completedOperation) {
+    [self AFGet:singeTxUrl withParams:nil completed:^(id response) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            DDLogDebug(@"api response:%@", completedOperation.responseString);
-            if (![StringUtil isEmpty:completedOperation.responseString]) {
-                NSDictionary *dict = completedOperation.responseJSON;
+            if (![StringUtil isEmpty:response]) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
                 if (callback) {
                     callback(dict);
                 }
             }
         });
-        
-    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
+    } andErrorCallback:^(NSError *error) {
         if (errorCallback) {
-            errorCallback(errorOp, error);
+            errorCallback(nil,error);
         }
-        
-    } ssl:NO];
+    }];
+    
     
 }
 #pragma mark - getblockHeightApiFromBlockChain
 - (void)getblockHeightApiFromBlockChain:(NSString *)address  callback:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback{
-    //NSLog(@"ever Address :%@",address);
-    NSString *blockHeightUrl = @"latestblock";
-    [self getBlockChainBh:blockHeightUrl withParams:@{@"address": address} networkType:BlockChain completed:^(MKNetworkOperation *completedOperation) {
+//    //NSLog(@"ever Address :%@",address);
+//    NSString *blockHeightUrl = @"latestblock";
+//    [self getBlockChainBh:blockHeightUrl withParams:@{@"address": address} networkType:BlockChain completed:^(MKNetworkOperation *completedOperation) {
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//            DDLogDebug(@"api response:%@", completedOperation.responseString);
+//            if (![StringUtil isEmpty:completedOperation.responseString]) {
+//                NSDictionary *dict = completedOperation.responseJSON;
+//                if (callback) {
+//                    callback(dict);
+//                }
+//            }
+//        });
+//
+//    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
+//        if (errorCallback) {
+//            errorCallback(errorOp, error);
+//        }
+//
+//
+//    } ssl:NO];
+    [self AFGet:BLOCKCHAIN_INFO_GET_LASTST_BLOCK withParams:nil completed:^(id response) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            DDLogDebug(@"api response:%@", completedOperation.responseString);
-            if (![StringUtil isEmpty:completedOperation.responseString]) {
-                NSDictionary *dict = completedOperation.responseJSON;
-                if (callback) {
-                    callback(dict);
-                }
+            NSDictionary* responesData = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+            if (callback) {
+                callback(responesData);
             }
         });
-        
-    } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
+    } andErrorCallback:^(NSError *error) {
         if (errorCallback) {
-            errorCallback(errorOp, error);
+            errorCallback(nil, error);
         }
-        
-        
-    } ssl:NO];
+    }];
     
 }
 #pragma mark - getTransactionApiFrom bither.net
@@ -210,27 +189,31 @@ static BitherApi *piApi;
         }
     }];
 }
-
+//更新图表交易数据
 - (void)getExchangeTicker:(VoidBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
-    [self          get:BITHER_EXCHANGE_TICKER withParams:nil networkType:BitherStats completed:^(MKNetworkOperation *completedOperation) {
+    [self          get:BITHER_EXCHANGE_TICKER withParams:nil networkType:PrimeMarket completed:^(MKNetworkOperation *completedOperation) {
+        //处理返回数据
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             if (![StringUtil isEmpty:completedOperation.responseString]) {
-                [GroupFileUtil setTicker:completedOperation.responseString];
-                NSDictionary *dict = completedOperation.responseJSON;
-                [MarketUtil handlerResult:dict];
-                
+                NTicker *tk =  [NTicker sharedManager];
+                tk = [[NTicker alloc] initWithDictionary:completedOperation.responseJSON error:nil];
+                [tk setCacheData];
+//                [GroupFileUtil setTicker:completedOperation.responseString];
+//                NSDictionary *dict = completedOperation.responseJSON;
+//                [MarketUtil handlerResult:[dict objectForKey:@"data"]];
                 if (callback) {
                     callback();
                 }
             }
-            
+
         });
     } andErrorCallback:^(NSOperation *errorOp, NSError *error) {
         if (errorCallback) {
             errorCallback(errorOp, error);
         }
-        
+
     }];
+
     
 }
 
@@ -282,7 +265,7 @@ static BitherApi *piApi;
         }
     }];
 }
-
+//获取块的哈希值
 - (void)getBcdPreBlockHashCallback:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
     NSString *urlStr = BCD_PREBLOCKHASH;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -298,7 +281,7 @@ static BitherApi *piApi;
         }
     }];
 }
-
+//发送广播
 - (void)postSplitCoinBroadcast:(BTTx *)tx splitCoin:(SplitCoin)splitCoin callback:(DictResponseBlock)callback andErrorCallBack:(ErrorHandler)errorCallback {
     NSDictionary *dict;
     if(splitCoin == SplitBCD) {
@@ -325,7 +308,7 @@ static BitherApi *piApi;
         }
     }];
 }
-
+//获取广告图片
 - (void)getAdImageWithResponseDic:(NSDictionary *)responseDic imageKey:(NSString *)imageKey {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];

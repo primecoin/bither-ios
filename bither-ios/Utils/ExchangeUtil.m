@@ -87,7 +87,7 @@ static NSDictionary *_currenciesRate = nil;
 + (double)getRateForMarket:(MarketType)marketType {
     Currency defaultCurrency = [[UserDefaultsUtil instance] getDefaultCurrency];
     double rate = 1;
-    Currency currency = [self getCurrencyForMarket:marketType];
+    Currency currency = [self getCurrencyForMarket:marketType];//美元or人民币
     if (currency != defaultCurrency && [self getCurrenciesRate] != nil) {
         double preRate = [[self getCurrenciesRate][[BitherSetting getCurrencyName:currency]] doubleValue];
         double defaultRate = [[self getCurrenciesRate][[BitherSetting getCurrencyName:defaultCurrency]] doubleValue];
@@ -98,17 +98,8 @@ static NSDictionary *_currenciesRate = nil;
 
 + (Currency)getCurrencyForMarket:(MarketType)marketType {
     switch (marketType) {
-        case HUOBI:
-        case OKCOIN:
-        case BTCCHINA:
-        case CHBTC:
-        case BTCTRADE:
-            return CNY;
-        case BITSTAMP:
-        case MARKET796:
-        case BITFINEX:
-        case COINBASE:
-            return USD;
+//        case COINMARKETCAP:
+//            return USD;
         default:
             return CNY;
     }

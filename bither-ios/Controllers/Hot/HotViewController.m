@@ -54,6 +54,7 @@
     self.pvSync.hidden = YES;
     self.pvSync.progress = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncProgress:) name:BTPeerManagerSyncProgressNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncTProgress:) name:BTTranscationManagerSyncProgressNotification object:nil];
 }
 
 - (void)initTabs {
@@ -135,7 +136,8 @@
         return;
     }
     IOS7ContainerViewController *container = [[IOS7ContainerViewController alloc] init];
-    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HotAddressAdd"];
+//    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HotAddressAdd"];//关闭HD
+    container.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HotAddressAddPrivateKey"];
     [self presentViewController:container animated:YES completion:nil];
 }
 
@@ -164,14 +166,30 @@
         self.pvSync.hidden = YES;
     }
 }
-
+- (void)syncTProgress:(NSNotification *)notification {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayHidePvSync) object:nil];
+    if (notification && notification.object && [notification.object isKindOfClass:[NSNumber class]]) {
+        double progress = ((NSNumber *) notification.object).doubleValue;
+        if (progress >= 0 && progress <= 1) {
+            self.pvSync.hidden = NO;
+            [UIView animateWithDuration:0.5 animations:^{
+                [self.pvSync setProgress:progress animated:YES];
+            }];
+        }
+        if (progress < 0 || progress >= 1) {
+            [self performSelector:@selector(delayHidePvSync) withObject:nil afterDelay:0.5];
+        }
+    } else {
+        self.pvSync.hidden = YES;
+    }
+}
 - (void)delayHidePvSync {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayHidePvSync) object:nil];
     self.pvSync.hidden = YES;
     self.pvSync.progress = 0;
 }
 
-- (void)initApp {
+- (void)initApp {//更新头像
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         UploadAndDowloadFileFactory *uploadAndDowload = [[UploadAndDowloadFileFactory alloc] init];
         [uploadAndDowload uploadAvatar:nil andErrorCallBack:nil];

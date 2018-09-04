@@ -151,7 +151,7 @@
 + (void)readFromURL:(NSURL *)url withCompletion:(void (^)(NSData *data, NSError *error))completion {
     if (![GroupFileUtil supported]) {
         if (completion) {
-            completion(nil, [NSError errorWithDomain:@"group.net.bither" code:0 userInfo:nil]);
+            completion(nil, [NSError errorWithDomain:@"group.primecoin.org" code:0 userInfo:nil]);
         }
         return;
     }
@@ -188,7 +188,7 @@
 + (void)writeToURL:(NSURL *)url withData:(NSData *)data withCompletion:(void (^)(NSError *error))completion {
     if (![GroupFileUtil supported]) {
         if (completion) {
-            completion([NSError errorWithDomain:@"group.net.bither" code:0 userInfo:nil]);
+            completion([NSError errorWithDomain:@"group.primecoin.org" code:0 userInfo:nil]);
         }
         return;
     }

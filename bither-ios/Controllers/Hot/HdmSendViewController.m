@@ -146,6 +146,10 @@
 
 - (IBAction)sendPressed:(id)sender {
     if ([self checkValues]) {
+        if ([StringUtil compareString:[self getToAddress] compare:self.address.address]) {
+            [self showBannerWithMessage:NSLocalizedString(@"select_address_to_same_warn", nil) belowView:self.vTopBar];
+            return;
+        }
         if ([StringUtil compareString:[self getToAddress] compare:self.dialogSelectChangeAddress.changeAddress.address]) {
             [self showBannerWithMessage:NSLocalizedString(@"select_change_address_change_to_same_warn", nil) belowView:self.vTopBar];
             return;
@@ -234,13 +238,14 @@
     }
 }
 
-- (void)onSendTxConfirmed:(BTTx *)tx {
+- (void)onSendTxConfirmed:(BTTx *)tx {//首次确认之后发送交易给第三方交易平台和广播出去
     if (!tx) {
         return;
     }
     [dp changeToMessage:NSLocalizedString(@"Please wait…", nil)];
     [dp showInWindow:self.view.window completion:^{
         [[PushTxThirdParty instance] pushTx:tx];
+        //广播
         [[BTPeerManager instance] publishTransaction:tx completion:^(NSError *error) {
             if (!error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -341,7 +346,7 @@
     BOOL validPassword = [StringUtil validPassword:self.tfPassword.text];
     BOOL validAddress = [[self getToAddress] isValidBitcoinAddress];
     int64_t amount = self.amtLink.amount;
-    return validAddress && validPassword && amount > 0;
+    return validAddress && validPassword && amount >0;
 }
 
 - (void)check {

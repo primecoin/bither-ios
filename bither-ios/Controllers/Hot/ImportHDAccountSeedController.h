@@ -17,7 +17,7 @@
 //  limitations under the License.
 //
 //  Created by songchenwen on 15/4/28.
-//
+//  导入hd账户种子
 
 #import <Foundation/Foundation.h>
 

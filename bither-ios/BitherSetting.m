@@ -116,9 +116,9 @@ static BOOL _isUnitTest = NO;
     }
 }
 
-+ (NSString *)getTransactionFee:(TransactionFeeMode)transactionFee {
++ (NSString *)getTransactionFee:(TransactionFeeMode)transactionFee {//手续费
     CGFloat dividend = 100000;
-    NSString *unit = @"mBTC/kb";
+    NSString *unit = @"mXPM/kb";
     if (transactionFee == TenX) {
         return [NSString stringWithFormat:@"%.1f%@", TenX/dividend, unit];
     } else if (transactionFee == TwentyX) {

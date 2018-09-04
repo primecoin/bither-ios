@@ -67,6 +67,7 @@ static Setting *PasswordStrengthCheckSetting;
 static Setting *TotalBalanceHideSetting;
 static Setting *NetworkMonitorSetting;
 static Setting *ApiConfigSetting;
+static Setting *GenerateSecurePrivateKey;
 
 - (instancetype)initWithName:(NSString *)name icon:(UIImage *)icon {
     self = [super init];
@@ -92,7 +93,7 @@ static Setting *ApiConfigSetting;
         [BitcoinUnitSetting setGetArrayBlock:^() {
             NSMutableArray *array = [NSMutableArray new];
             [array addObject:[Setting getBitcoinUnitDict:UnitBTC]];
-            [array addObject:[Setting getBitcoinUnitDict:Unitbits]];
+//            [array addObject:[Setting getBitcoinUnitDict:Unitbits]];
             return array;
         }];
         [BitcoinUnitSetting setGetValueBlock:^() {
@@ -160,12 +161,12 @@ static Setting *ApiConfigSetting;
             NSMutableArray *array = [NSMutableArray new];
             [array addObject:[self getExchangeDict:USD]];
             [array addObject:[self getExchangeDict:CNY]];
-            [array addObject:[self getExchangeDict:EUR]];
-            [array addObject:[self getExchangeDict:GBP]];
-            [array addObject:[self getExchangeDict:JPY]];
-            [array addObject:[self getExchangeDict:KRW]];
-            [array addObject:[self getExchangeDict:CAD]];
-            [array addObject:[self getExchangeDict:AUD]];
+//            [array addObject:[self getExchangeDict:EUR]];
+//            [array addObject:[self getExchangeDict:GBP]];
+//            [array addObject:[self getExchangeDict:JPY]];
+//            [array addObject:[self getExchangeDict:KRW]];
+//            [array addObject:[self getExchangeDict:CAD]];
+//            [array addObject:[self getExchangeDict:AUD]];
             return array;
 
         }];
@@ -203,7 +204,7 @@ static Setting *ApiConfigSetting;
         [setting setGetArrayBlock:^() {
             MarketType defaultMarket = [[UserDefaultsUtil instance] getDefaultMarket];
             NSMutableArray *array = [NSMutableArray new];
-            for (int i = BITSTAMP; i <= MARKET796; i++) {
+            for (int i = COINMARKETCAP; i <= COINMARKETCAP; i++) {
                 NSMutableDictionary *dict = [NSMutableDictionary new];
                 [dict setObject:[NSNumber numberWithInt:i] forKey:SETTING_VALUE];
                 [dict setObject:[GroupUtil getMarketName:i] forKey:SETTING_KEY];
@@ -241,11 +242,11 @@ static Setting *ApiConfigSetting;
         }];
         [setting setGetArrayBlock:^() {
             NSMutableArray *array = [NSMutableArray new];
-            [array addObject:[self getTransactionFeeDict:TwentyX]];
-            [array addObject:[self getTransactionFeeDict:TenX]];
-            [array addObject:[self getTransactionFeeDict:Higher]];
-            [array addObject:[self getTransactionFeeDict:High]];
             [array addObject:[self getTransactionFeeDict:Normal]];
+            [array addObject:[self getTransactionFeeDict:High]];
+            [array addObject:[self getTransactionFeeDict:Higher]];
+            [array addObject:[self getTransactionFeeDict:TenX]];
+            [array addObject:[self getTransactionFeeDict:TwentyX]];
             return array;
 
         }];
@@ -410,7 +411,7 @@ static Setting *ApiConfigSetting;
 
 }
 
-+ (Setting *)getEditPasswordSetting {
++ (Setting *)getEditPasswordSetting {//修改密码
     if (!EditPasswordSetting) {
         Setting *setting = [[Setting alloc] initWithName:NSLocalizedString(@"Change Password", nil) icon:[UIImage imageNamed:@"edit_password_button_icon"]];
         [setting setSelectBlock:^(UIViewController *controller) {
@@ -429,7 +430,7 @@ static Setting *ApiConfigSetting;
     return EditPasswordSetting;
 }
 
-+ (Setting *)getColdMonitorSetting {
++ (Setting *)getColdMonitorSetting {//监控二维码
     if (!ColdMonitorSetting) {
         ColdMonitorSetting = [[Setting alloc] initWithName:NSLocalizedString(@"Watch Only QR Code", nil) icon:[UIImage imageNamed:@"qr_code_button_icon"]];
         [ColdMonitorSetting setSelectBlock:^(UIViewController *controller) {
@@ -453,7 +454,7 @@ static Setting *ApiConfigSetting;
     return ColdMonitorSetting;
 }
 
-+ (Setting *)getRCheckSetting {
++ (Setting *)getRCheckSetting {//r值检查
     if (!RCheckSetting) {
         RCheckSetting = [[Setting alloc] initWithName:NSLocalizedString(@"setting_name_rcheck", nil) icon:[UIImage imageNamed:@"rcheck_button_icon"]];
         [RCheckSetting setSelectBlock:^(UIViewController *controller) {
@@ -469,7 +470,7 @@ static Setting *ApiConfigSetting;
     return RCheckSetting;
 }
 
-+ (Setting *)getTrashCanSetting {
++ (Setting *)getTrashCanSetting {//回收站
     if (!TrashCanSetting) {
         TrashCanSetting = [[Setting alloc] initWithName:NSLocalizedString(@"trash_can", nil) icon:[UIImage imageNamed:@"trash_can_button_icon"]];
         [TrashCanSetting setSelectBlock:^(UIViewController *controller) {
@@ -699,6 +700,18 @@ static Setting *ApiConfigSetting;
     return NetworkMonitorSetting;
 }
 
++ (Setting *)getGenerateSecurePrivateKey {
+    if (!GenerateSecurePrivateKey) {
+        GenerateSecurePrivateKey = [[Setting alloc]initWithName:NSLocalizedString(@"Generate_secure_private_key", nil) icon:nil];
+        [GenerateSecurePrivateKey setSelectBlock:^(UIViewController *controller) {
+            UIViewController *c = [controller.storyboard instantiateViewControllerWithIdentifier:@"RawPrivateKey"];
+            UINavigationController *nav = controller.navigationController;
+            [nav pushViewController:c animated:YES];
+        }];
+    }
+    return GenerateSecurePrivateKey;
+}
+
 + (NSArray *)forkCoins{
     NSMutableArray *array = [NSMutableArray new];
     [array addObject:[GetSplitSetting getSplitSetting:SplitBCC]];
@@ -720,29 +733,29 @@ static Setting *ApiConfigSetting;
     [array addObject:[Setting getEditPasswordSetting]];
     [array addObject:[PinCodeSetting getPinCodeSetting]];
     [array addObject:[Setting getQrCodeQualitySetting]];
-    [array addObject:[ImportPrivateKeySetting getImportPrivateKeySetting]];
+//    [array addObject:[ImportPrivateKeySetting getImportPrivateKeySetting]];
     [array addObject:[ImportBip38PrivateKeySetting getImportBip38PrivateKeySetting]];
-    if ([[BTSettings instance] getAppMode] == HOT && [[BTAddressManager instance] hdmKeychain] == nil) {
-        [array addObject:[HDMRecoverSetting getHDMRecoverSetting]];
-    }
-    if ([[BTSettings instance] getAppMode] == HOT && [BTHDMBid getHDMBidFromDb]) {
-        [array addObject:[Setting getHDMServerPasswordResetSetting]];
-    }
+//    if ([[BTSettings instance] getAppMode] == HOT && [[BTAddressManager instance] hdmKeychain] == nil) {
+//        [array addObject:[HDMRecoverSetting getHDMRecoverSetting]];
+//    }
+//    if ([[BTSettings instance] getAppMode] == HOT && [BTHDMBid getHDMBidFromDb]) {
+//        [array addObject:[Setting getHDMServerPasswordResetSetting]];
+//    }
     
-    if ([[BTSettings instance] getAppMode] == HOT) {
-        [array addObject:[Setting getForkCoins]];
-    }
+//    if ([[BTSettings instance] getAppMode] == HOT) {
+//        [array addObject:[Setting getForkCoins]];
+//    }
     [array addObject:[MessageSigningSetting getMessageSigningSetting]];
     [array addObject:[Setting getPasswordStrengthSetting]];
     if ([[BTSettings instance] getAppMode] == HOT){
         [array addObject:[Setting getTotalBalanceHideSetting]];
     }
-    if ([[BTSettings instance] getAppMode] == HOT && ([BTAddressManager instance].allAddresses.count > 0 || [BTAddressManager instance].hasHDAccountHot)) {
-        [array addObject:[PaymentAddressSetting setting]];
-    }
+//    if ([[BTSettings instance] getAppMode] == HOT && ([BTAddressManager instance].allAddresses.count > 0 || [BTAddressManager instance].hasHDAccountHot)) {
+//        [array addObject:[PaymentAddressSetting setting]];
+//    }
     [array addObject:[Setting getTrashCanSetting]];
     if ([[BTSettings instance] getAppMode] == HOT) {
-        [array addObject:[Setting getApiConfigSetting]];
+//        [array addObject:[Setting getApiConfigSetting]];
         [array addObject:[ReloadTxSetting getReloadTxsSetting]];
     }
     if ([[BTSettings instance] getAppMode] == HOT) {
@@ -751,6 +764,9 @@ static Setting *ApiConfigSetting;
 //    if ([[BTSettings instance] getAppMode] == HOT) {
 //        [array addObject:[Setting getKeychainSetting]];
 //    }
+    if ([[BTSettings instance] getAppMode] == HOT) {
+        [array addObject:[Setting getGenerateSecurePrivateKey]];
+    }
     return array;
 }
 
@@ -769,7 +785,7 @@ static Setting *ApiConfigSetting;
         [ApiConfigSetting setGetArrayBlock:^() {
             ApiConfig config = [UserDefaultsUtil instance].getApiConfig;
             NSMutableArray *array = [NSMutableArray new];
-            for(ApiConfig c = ApiConfigBither; c <= ApiConfigBlockchainInfo; c++){
+            for(ApiConfig c = ApiConfigBlockchainInfo; c <= ApiConfigBither; c++){
                 NSMutableDictionary *dict = [NSMutableDictionary new];
                 [dict setObject:[NSNumber numberWithInt:c] forKey:SETTING_VALUE];
                 [dict setObject:[self nameForApiConfig:c] forKey:SETTING_KEY];

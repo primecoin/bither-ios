@@ -43,23 +43,23 @@ static PeerUtil *peerUtil;
 }
 
 
-- (void)startPeer {
+- (void)startPeer {//开始连接节点
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if ([[BTSettings instance] getAppMode] != COLD) {
+        if ([[BTSettings instance] getAppMode] != COLD) {//热钱包
 
-            if ([[BlockUtil instance] syncSpvFinish]) {
-                if ([[BTPeerManager instance] doneSyncFromSPV]) {
-                    [self syncSpvFromBitcoinDone];
+            if ([[BlockUtil instance] syncSpvFinish]) {//区块是否同步完成
+                if ([[BTPeerManager instance] doneSyncFromSPV]) {//是否同步spv
+                    [self syncSpvFromBitcoinDone];//同步网络交易数据
                 } else {
                     if (![[BTPeerManager instance] connected]) {
-                        [[BTPeerManager instance] start];
+                        [[BTPeerManager instance] start];//连接节点
                     }
                     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncSpvFromBitcoinDone) name:BTPeerManagerSyncFromSPVFinishedNotification object:nil];
                     addObserver = YES;
                 }
 
             } else {
-                [[BlockUtil instance] syncSpvBlock];
+                [[BlockUtil instance] syncSpvBlock];//同步区块
             }
         }
     });

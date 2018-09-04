@@ -85,7 +85,7 @@
     self.dv.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [bottomView addSubview:self.dv];
 
-    self.dvNew = [[PinCodeDotsView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width, kBottomMargin, kDotsViewWidth, kDotsViewHeight)];
+    self.dvNew = [[PinCodeDotsView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width+(bottomView.frame.size.width - kDotsViewWidth) / 2, kBottomMargin, kDotsViewWidth, kDotsViewHeight)];
     self.dvNew.backgroundColor = [UIColor clearColor];
     self.dvNew.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [bottomView addSubview:self.dvNew];

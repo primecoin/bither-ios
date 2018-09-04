@@ -33,15 +33,17 @@
 - (void)setMarket:(Market *)market {
     self.lbMarketName.text = [market getName];
     self.lbMarketName.textColor = [GroupUtil getMarketColor:market.marketType];
-    if (market.ticker) {
+    if (market.nticker) {
         NSString *symobl = [BitherSetting getCurrencySymbol:[[UserDefaultsUtil instance] getDefaultCurrency]];
-
-        self.lbPrice.text = [NSString stringWithFormat:@"%@%.2f", symobl, [market.ticker getDefaultExchangePrice]];
+        NTickerConvert *conDetl = market.nticker.data.quotes.USD;
+        if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+            conDetl = market.nticker.data.quotes.CNY;
+        }
+        self.lbPrice.text = [NSString stringWithFormat:@"%@%.2f", symobl, [conDetl.price doubleValue]];
     } else {
         self.lbPrice.text = @"--";
     }
 }
-
 - (UIEdgeInsets)layoutMargins {
     return UIEdgeInsetsZero;
 }

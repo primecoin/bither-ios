@@ -64,7 +64,7 @@
     return self;
 }
 
-- (void)firstConfigure {
+- (void)firstConfigure {//首次确认
     NSString *toAddress = _toAddress;
     NSString *amountString = [UnitUtil stringForAmount:[_tx amountSentTo:_toAddress]];
     NSString *feeString = [UnitUtil stringForAmount:[_fromAddress feeForTransaction:_tx]];
@@ -179,7 +179,7 @@
     }
 }
 
-- (void)confirmPressed:(id)sender {
+- (void)confirmPressed:(id)sender {//确认之后
     [self dismissWithCompletion:^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(onSendTxConfirmed:)]) {
             [self.delegate onSendTxConfirmed:_tx];

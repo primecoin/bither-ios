@@ -283,7 +283,7 @@
     ScanQrCodeViewController *scan = [[ScanQrCodeViewController alloc] initWithDelegate:self title:[NSString stringWithFormat:NSLocalizedString(@"Scan Bitpie Split Coin Address", nil), [SplitCoinUtil getSplitCoinName:self.splitCoin]] message:NSLocalizedString(@"Scan QR Code for Bitcoin address", nil)];
     [self presentViewController:scan animated:YES completion:nil];
 }
-
+//获取二维码
 - (void)handleResult:(NSString *)result byReader:(ScanQrCodeViewController *)reader {
     if (![reader isKindOfClass:[ScanQrCodeTransportViewController class]]) {
         BOOL isValidBitcoinAddress = [SplitCoinUtil validSplitCoinAddress:self.splitCoin address:result];

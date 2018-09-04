@@ -25,6 +25,6 @@
 - (void)startPeer;
 
 - (void)stopPeer;
-
+- (void)connectPeer;
 
 @end

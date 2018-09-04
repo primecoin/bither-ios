@@ -140,7 +140,18 @@
 		42E8161C19529B14005F16F7 /* KeyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E8161B19529B14005F16F7 /* KeyUtil.m */; };
 		42E816251952DF43005F16F7 /* StringUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E816241952DF43005F16F7 /* StringUtilTest.m */; };
 		42EFB54C1949C50900376888 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42EFB54E1949C50900376888 /* MainStoryboard.storyboard */; };
-		9C344A05FE234090F3C15DB8 /* libPods-bither-iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E3479550DEAE1D0260A9F0A /* libPods-bither-iosTests.a */; };
+		921B1D942126742D00ECA08C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921B1D932126742D00ECA08C /* LaunchScreen.storyboard */; };
+		928B3DD421102BCA00621D1F /* NTicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DD321102BCA00621D1F /* NTicker.m */; };
+		928B3DEC2110329700621D1F /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DD72110329700621D1F /* JSONValueTransformer.m */; };
+		928B3DED2110329700621D1F /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DDA2110329700621D1F /* JSONKeyMapper.m */; };
+		928B3DEE2110329700621D1F /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DDC2110329700621D1F /* JSONModel.m */; };
+		928B3DEF2110329700621D1F /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DDD2110329700621D1F /* JSONModelError.m */; };
+		928B3DF02110329700621D1F /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DE02110329700621D1F /* JSONModelClassProperty.m */; };
+		928B3DF12110329700621D1F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 928B3DE32110329700621D1F /* Info.plist */; };
+		928B3DF22110329700621D1F /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DE62110329700621D1F /* JSONHTTPClient.m */; };
+		928B3DF32110329700621D1F /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DE72110329700621D1F /* JSONAPI.m */; };
+		928B3DF42110329700621D1F /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B3DEB2110329700621D1F /* JSONModel+networking.m */; };
+		928B3DF921103E0700621D1F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B3DF821103E0600621D1F /* SystemConfiguration.framework */; };
 		AC0135D0194ED8B800E3BB95 /* HotAddressAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0135CF194ED8B800E3BB95 /* HotAddressAddViewController.m */; };
 		AC0135D6194FDCCD00E3BB95 /* HotAddressAddWatchOnlyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0135D5194FDCCD00E3BB95 /* HotAddressAddWatchOnlyViewController.m */; };
 		AC0135D9194FDCDF00E3BB95 /* HotAddressAddPrivateKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0135D8194FDCDF00E3BB95 /* HotAddressAddPrivateKeyViewController.m */; };
@@ -447,7 +458,6 @@
 		112DED432010C3F100CE6998 /* GetSplitSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetSplitSetting.m; sourceTree = "<group>"; };
 		117562F82011C7EA00BEF7BA /* GetForkCoinsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetForkCoinsController.h; sourceTree = "<group>"; };
 		117562F92011C7FD00BEF7BA /* GetForkCoinsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetForkCoinsController.m; sourceTree = "<group>"; };
-		1B82ED165679F1FB126B6E9E /* Pods-bither-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bither-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bither-iosTests/Pods-bither-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC27043CB19B6031727B679 /* DialogHDMSingularColdSeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogHDMSingularColdSeed.h; sourceTree = "<group>"; };
 		1BC270628E82FFBA24125AEB /* HDMResetServerPasswordUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMResetServerPasswordUtil.h; sourceTree = "<group>"; };
 		1BC272B77D3B4123842B7220 /* PasswordStrengthUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordStrengthUtil.h; sourceTree = "<group>"; };
@@ -633,6 +643,29 @@
 		4E3479550DEAE1D0260A9F0A /* libPods-bither-iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bither-iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CC6F689E70D4ED26B9ADC95 /* Pods-bither-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bither-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bither-ios/Pods-bither-ios.release.xcconfig"; sourceTree = "<group>"; };
 		87EE176B8A05EC307AB3AAAF /* Pods-bither-ios WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bither-ios WatchKit App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bither-ios WatchKit App/Pods-bither-ios WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
+		921B1D932126742D00ECA08C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		928B3DD221102BCA00621D1F /* NTicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTicker.h; sourceTree = "<group>"; };
+		928B3DD321102BCA00621D1F /* NTicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTicker.m; sourceTree = "<group>"; };
+		928B3DD72110329700621D1F /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		928B3DD82110329700621D1F /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
+		928B3DD92110329700621D1F /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
+		928B3DDA2110329700621D1F /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
+		928B3DDC2110329700621D1F /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
+		928B3DDD2110329700621D1F /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
+		928B3DDE2110329700621D1F /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
+		928B3DDF2110329700621D1F /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
+		928B3DE02110329700621D1F /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
+		928B3DE12110329700621D1F /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
+		928B3DE22110329700621D1F /* JSONModel.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = JSONModel.modulemap; sourceTree = "<group>"; };
+		928B3DE32110329700621D1F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		928B3DE42110329700621D1F /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
+		928B3DE62110329700621D1F /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
+		928B3DE72110329700621D1F /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
+		928B3DE82110329700621D1F /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
+		928B3DE92110329700621D1F /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
+		928B3DEA2110329700621D1F /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
+		928B3DEB2110329700621D1F /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
+		928B3DF821103E0600621D1F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		943C08F77A6E63BB072E5275 /* Pods-bither-ios WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bither-ios WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-bither-ios WatchKit App/Pods-bither-ios WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		AC0135CE194ED8B800E3BB95 /* HotAddressAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotAddressAddViewController.h; sourceTree = "<group>"; };
 		AC0135CF194ED8B800E3BB95 /* HotAddressAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAddressAddViewController.m; sourceTree = "<group>"; };
@@ -908,7 +941,6 @@
 		ACF02FEA19D90899001AB701 /* DialogSwitchQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogSwitchQRCode.m; sourceTree = "<group>"; };
 		ACF4B17219668D5700CE24FD /* MarketListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarketListCell.h; path = Cells/MarketListCell.h; sourceTree = "<group>"; };
 		ACF4B17319668D5700CE24FD /* MarketListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarketListCell.m; path = Cells/MarketListCell.m; sourceTree = "<group>"; };
-		BDE877D55BFB486FD0A9E0FB /* Pods-bither-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bither-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bither-iosTests/Pods-bither-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D61D00DE53941DC6062E1938 /* HDMApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMApi.h; sourceTree = "<group>"; };
 		D61D0299B4CDCCFC6D0BA161 /* hdm.bither.net.cer */ = {isa = PBXFileReference; lastKnownFileType = file.der; path = hdm.bither.net.cer; sourceTree = "<group>"; };
 		D61D07CCE58EB1B7FCA04677 /* PasswordGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordGetter.h; sourceTree = "<group>"; };
@@ -952,6 +984,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928B3DF921103E0700621D1F /* SystemConfiguration.framework in Frameworks */,
 				ACBE75961A202E4900F49EE1 /* LocalAuthentication.framework in Frameworks */,
 				ACA9D70C195415B0002D1E3A /* AudioToolbox.framework in Frameworks */,
 				ACDDDC3819483D210008A79D /* QuartzCore.framework in Frameworks */,
@@ -969,7 +1002,6 @@
 				42D9B77E193D6B5B00C85B89 /* XCTest.framework in Frameworks */,
 				42D9B780193D6B5B00C85B89 /* UIKit.framework in Frameworks */,
 				42D9B77F193D6B5B00C85B89 /* Foundation.framework in Frameworks */,
-				9C344A05FE234090F3C15DB8 /* libPods-bither-iosTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,8 +1104,6 @@
 				943C08F77A6E63BB072E5275 /* Pods-bither-ios WatchKit App.release.xcconfig */,
 				DB4EB6E1B448823B24933374 /* Pods-bither-ios WatchKit Extension.debug.xcconfig */,
 				4CBD900EB9903F628A4F4E65 /* Pods-bither-ios WatchKit Extension.release.xcconfig */,
-				BDE877D55BFB486FD0A9E0FB /* Pods-bither-iosTests.debug.xcconfig */,
-				1B82ED165679F1FB126B6E9E /* Pods-bither-iosTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1100,6 +1130,8 @@
 				4269FF73195A8872001213B9 /* Market.h */,
 				4269FF74195A8872001213B9 /* Market.m */,
 				0ACA344B1CF68FC600ADD73A /* ApiConfig.h */,
+				928B3DD221102BCA00621D1F /* NTicker.h */,
+				928B3DD321102BCA00621D1F /* NTicker.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1327,6 +1359,7 @@
 		42D9B758193D6B5B00C85B89 = {
 			isa = PBXGroup;
 			children = (
+				928B3DD52110329700621D1F /* JSONModel */,
 				42D9B76A193D6B5B00C85B89 /* bither-ios */,
 				42D9B783193D6B5B00C85B89 /* bither-iosTests */,
 				0A4749701A9D7F0B003684E2 /* bither-ios WatchKit Extension */,
@@ -1349,6 +1382,7 @@
 		42D9B763193D6B5B00C85B89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				928B3DF821103E0600621D1F /* SystemConfiguration.framework */,
 				0A637B161AA0419C00696260 /* libPods.a */,
 				ACBE75951A202E4900F49EE1 /* LocalAuthentication.framework */,
 				AC026C8019EE5FF500BC0152 /* libPods-Bitheri.a */,
@@ -1399,6 +1433,7 @@
 				425408441946A219007AF99C /* Utils */,
 				AC53ABA419D277C1007C095C /* XRandom */,
 				401ED0F81DBEEC69009A1725 /* Ad */,
+				921B1D932126742D00ECA08C /* LaunchScreen.storyboard */,
 			);
 			path = "bither-ios";
 			sourceTree = "<group>";
@@ -1439,6 +1474,57 @@
 				42D9B786193D6B5B00C85B89 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		928B3DD52110329700621D1F /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				928B3DD62110329700621D1F /* JSONModelTransformations */,
+				928B3DDB2110329700621D1F /* JSONModel */,
+				928B3DE22110329700621D1F /* JSONModel.modulemap */,
+				928B3DE32110329700621D1F /* Info.plist */,
+				928B3DE42110329700621D1F /* JSONModelLib.h */,
+				928B3DE52110329700621D1F /* JSONModelNetworking */,
+			);
+			name = JSONModel;
+			path = "bither-ios/JSONModel";
+			sourceTree = "<group>";
+		};
+		928B3DD62110329700621D1F /* JSONModelTransformations */ = {
+			isa = PBXGroup;
+			children = (
+				928B3DD72110329700621D1F /* JSONValueTransformer.m */,
+				928B3DD82110329700621D1F /* JSONKeyMapper.h */,
+				928B3DD92110329700621D1F /* JSONValueTransformer.h */,
+				928B3DDA2110329700621D1F /* JSONKeyMapper.m */,
+			);
+			path = JSONModelTransformations;
+			sourceTree = "<group>";
+		};
+		928B3DDB2110329700621D1F /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				928B3DDC2110329700621D1F /* JSONModel.m */,
+				928B3DDD2110329700621D1F /* JSONModelError.m */,
+				928B3DDE2110329700621D1F /* JSONModelClassProperty.h */,
+				928B3DDF2110329700621D1F /* JSONModel.h */,
+				928B3DE02110329700621D1F /* JSONModelClassProperty.m */,
+				928B3DE12110329700621D1F /* JSONModelError.h */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		928B3DE52110329700621D1F /* JSONModelNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				928B3DE62110329700621D1F /* JSONHTTPClient.m */,
+				928B3DE72110329700621D1F /* JSONAPI.m */,
+				928B3DE82110329700621D1F /* JSONModel+networking.h */,
+				928B3DE92110329700621D1F /* JSONHTTPClient.h */,
+				928B3DEA2110329700621D1F /* JSONAPI.h */,
+				928B3DEB2110329700621D1F /* JSONModel+networking.m */,
+			);
+			path = JSONModelNetworking;
 			sourceTree = "<group>";
 		};
 		AC0135DD195056BE00E3BB95 /* KeyboardControl */ = {
@@ -1875,9 +1961,6 @@
 				42D9B75F193D6B5B00C85B89 /* Resources */,
 				4268FE14194AA3FD007A4C30 /* ShellScript */,
 				0A4749961A9D7F0B003684E2 /* Embed App Extensions */,
-				CEAE2ACDDC013D2C5BF7AFE3 /* [CP] Embed Pods Frameworks */,
-				71CAA345256519772492378B /* [CP] Copy Pods Resources */,
-				57A3503155CC151F7E71D4E1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1892,13 +1975,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42D9B790193D6B5B00C85B89 /* Build configuration list for PBXNativeTarget "bither-iosTests" */;
 			buildPhases = (
-				6FBEFC40B430D5B7DFCD02B9 /* [CP] Check Pods Manifest.lock */,
 				42D9B778193D6B5B00C85B89 /* Sources */,
 				42D9B779193D6B5B00C85B89 /* Frameworks */,
 				42D9B77A193D6B5B00C85B89 /* Resources */,
-				A56CF35E58EA71A93B905DED /* [CP] Embed Pods Frameworks */,
-				875D8BC18186B6F64BFFA765 /* [CP] Copy Pods Resources */,
-				A7DCEBD1D62E88E257233A8E /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1920,7 +1999,8 @@
 				ORGANIZATIONNAME = Bither;
 				TargetAttributes = {
 					42D9B760193D6B5B00C85B89 = {
-						DevelopmentTeam = 3JMKN3V45U;
+						DevelopmentTeam = U5L2GW2NBF;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1969,7 +2049,9 @@
 				ACA9D70A195410FF002D1E3A /* qr_code_scanned.mp3 in Resources */,
 				42D9B777193D6B5B00C85B89 /* Images.xcassets in Resources */,
 				AC53ABEE19D94230007C095C /* xrandom_open_sound.mp3 in Resources */,
+				921B1D942126742D00ECA08C /* LaunchScreen.storyboard in Resources */,
 				D61D047B6D9BE30D5BED20E1 /* hdm.bither.net.cer in Resources */,
+				928B3DF12110329700621D1F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1998,99 +2080,6 @@
 			shellPath = /bin/sh;
 			shellScript = "";
 		};
-		57A3503155CC151F7E71D4E1 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-ios/Pods-bither-ios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6FBEFC40B430D5B7DFCD02B9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bither-iosTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71CAA345256519772492378B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-ios/Pods-bither-ios-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		875D8BC18186B6F64BFFA765 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-iosTests/Pods-bither-iosTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A56CF35E58EA71A93B905DED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-iosTests/Pods-bither-iosTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A7DCEBD1D62E88E257233A8E /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-iosTests/Pods-bither-iosTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B29245A9BB8C54C810C26C54 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2109,21 +2098,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CEAE2ACDDC013D2C5BF7AFE3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bither-ios/Pods-bither-ios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2137,6 +2111,7 @@
 				ACBB5F56198B468E00B19F4B /* UIViewController+ConfigureTableView.m in Sources */,
 				AC45AA381987A2F4006314D5 /* DialogPrivateKeyText.m in Sources */,
 				42D9B775193D6B5B00C85B89 /* AppDelegate.m in Sources */,
+				928B3DF42110329700621D1F /* JSONModel+networking.m in Sources */,
 				421B037C19495315003A45F1 /* TabButton.m in Sources */,
 				AC5A916119ECDB5D00FFDB13 /* UploadAndDowloadFileFactory.m in Sources */,
 				AC1454A51A80D04D00E851B4 /* DialogOperationWorld.m in Sources */,
@@ -2176,6 +2151,7 @@
 				AC454DD81A1ED7E7000AF4ED /* PinCodeDotsView.m in Sources */,
 				ACF4B17419668D5700CE24FD /* MarketListCell.m in Sources */,
 				ACD6DFD2196BA83B009D8031 /* ColdAddressAddViewController.m in Sources */,
+				928B3DF22110329700621D1F /* JSONHTTPClient.m in Sources */,
 				ACEE7D3F19D4034D00932B39 /* CloneQrCodeSetting.m in Sources */,
 				425408581946A219007AF99C /* DateUtil.m in Sources */,
 				4268FE2C194ACD57007A4C30 /* OptionColdViewController.m in Sources */,
@@ -2193,6 +2169,7 @@
 				0A0961381B5CBAD300D554A6 /* DialogShowAddressOnNet.m in Sources */,
 				AC3CDB5B1962A3C800C74B4C /* TransactionConfidenceView.m in Sources */,
 				0A446C151A441393000CD25A /* DialogNetworkMonitorOption.m in Sources */,
+				928B3DD421102BCA00621D1F /* NTicker.m in Sources */,
 				0AD4EA741AEA30C600DC8C0E /* HotAddressAddOtherViewController.m in Sources */,
 				AC8912F21A7F62FE003797C4 /* WorldListCell.m in Sources */,
 				0A8853AD1AA8466E00760014 /* GroupUserDefaultUtil.m in Sources */,
@@ -2243,9 +2220,11 @@
 				AC2F3298195C1D53001B7439 /* SendViewController.m in Sources */,
 				117562FA2011C7FD00BEF7BA /* GetForkCoinsController.m in Sources */,
 				ACBEC01E196E87B9004301E0 /* CheckPrivateKeyCell.m in Sources */,
+				928B3DEF2110329700621D1F /* JSONModelError.m in Sources */,
 				AC17158A1969249B00337AB5 /* NSString+Size.m in Sources */,
 				0A55CD7A1DCB267E00F9DB31 /* DialogAddressQrCopy.m in Sources */,
 				0AD6749F1A7B9108007967DB /* DialogHDMSeedWordList.m in Sources */,
+				928B3DF02110329700621D1F /* JSONModelClassProperty.m in Sources */,
 				ACBEC01B196E397E004301E0 /* CheckScoreAndBgAnimatableView.m in Sources */,
 				AC454DE71A1F252B000AF4ED /* PinCodeUtil.m in Sources */,
 				4254083B19469C9A007AF99C /* BaseApi.m in Sources */,
@@ -2253,6 +2232,7 @@
 				AC2F3295195C02C3001B7439 /* AmountButton.m in Sources */,
 				42E8161C19529B14005F16F7 /* KeyUtil.m in Sources */,
 				ACEE7D3619D3FC4B00932B39 /* ReloadTxSetting.m in Sources */,
+				928B3DEC2110329700621D1F /* JSONValueTransformer.m in Sources */,
 				AC454DE41A1F2518000AF4ED /* PinCodeChangeViewController.m in Sources */,
 				425408571946A219007AF99C /* DataCheckUtil.m in Sources */,
 				0A6C0F5F1A4D5E1900544B33 /* DialogSignMessageSelectAddress.m in Sources */,
@@ -2330,6 +2310,7 @@
 				4268FE2B194ACD57007A4C30 /* CheckViewController.m in Sources */,
 				0A42062A1A494F1000562100 /* SignMessageViewController.m in Sources */,
 				DAB2C8761A206F080011EE2F /* KeychainBackupUtil.m in Sources */,
+				928B3DF32110329700621D1F /* JSONAPI.m in Sources */,
 				0A259E251A47F19100D7F707 /* DialogSendOption.m in Sources */,
 				AC454DDE1A1F24FA000AF4ED /* PinCodeEnableViewController.m in Sources */,
 				ACDDDC2219480DE00008A79D /* UIBaseUtil.m in Sources */,
@@ -2362,6 +2343,7 @@
 				1BC27F4819B6A68B81A47579 /* DialogHDMSingularColdSeed.m in Sources */,
 				1BC27DE93F1FECC0283202C2 /* DialogHDMSingularColdSeedChildWordsViewController.m in Sources */,
 				1BC27F0F16D3294B59AF9604 /* DialogHDMSingularColdSeedChildQrViewController.m in Sources */,
+				928B3DED2110329700621D1F /* JSONKeyMapper.m in Sources */,
 				1BC27B4D826CA122FC56ADD2 /* DialogHDMSingularModeInfo.m in Sources */,
 				1BC27FE46C243D52B180F1C2 /* DialogAddressAlias.m in Sources */,
 				1BC27D87BF2AC41578912E98 /* DialogAddressAliasInput.m in Sources */,
@@ -2383,6 +2365,7 @@
 				1BC27A2AB7C4C12F353D0C28 /* DialogOldAddressesOfHDAccount.m in Sources */,
 				1BC27D872392C01E3F942EA5 /* HDAccountMonitoredSendViewController.m in Sources */,
 				402A5CBE1F285BF500B636FD /* ObtainBccDetailViewController.m in Sources */,
+				928B3DEE2110329700621D1F /* JSONModel.m in Sources */,
 				112DED442010C3F100CE6998 /* GetSplitSetting.m in Sources */,
 				1BC27545244A5FD35C694114 /* TotalBalanceHideUtil.m in Sources */,
 			);
@@ -2579,9 +2562,10 @@
 			baseConfigurationReference = E81D3024732350ACA5688F89 /* Pods-bither-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "bither-ios/bither-ios.entitlements";
-				DEVELOPMENT_TEAM = 3JMKN3V45U;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5L2GW2NBF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2590,8 +2574,13 @@
 				GCC_PREFIX_HEADER = "bither-ios/bither-ios-Prefix.pch";
 				INFOPLIST_FILE = "bither-ios/bither-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.bither;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.primecoin.api;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 				WRAPPER_EXTENSION = app;
@@ -2603,9 +2592,10 @@
 			baseConfigurationReference = 5CC6F689E70D4ED26B9ADC95 /* Pods-bither-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "bither-ios/bither-ios.entitlements";
-				DEVELOPMENT_TEAM = 3JMKN3V45U;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U5L2GW2NBF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2614,8 +2604,13 @@
 				GCC_PREFIX_HEADER = "bither-ios/bither-ios-Prefix.pch";
 				INFOPLIST_FILE = "bither-ios/bither-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.bither;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.primecoin.api;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 				WRAPPER_EXTENSION = app;
@@ -2624,7 +2619,6 @@
 		};
 		42D9B791193D6B5B00C85B89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDE877D55BFB486FD0A9E0FB /* Pods-bither-iosTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/bither-ios.app/bither-ios";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2654,7 +2648,6 @@
 		};
 		42D9B792193D6B5B00C85B89 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B82ED165679F1FB126B6E9E /* Pods-bither-iosTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/bither-ios.app/bither-ios";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -26,6 +26,7 @@
 
 
 @implementation KeyUtil
+//生成普通私钥地址
 + (BOOL)addPrivateKeyByRandom:(XRandom *)xRandom passphras:(NSString *)password count:(int)count {
     NSMutableArray *addressList = [NSMutableArray new];
     for (int i = 0; i < count; i++) {
@@ -82,7 +83,7 @@
     array = array.reverseObjectEnumerator.allObjects;
     for (BTAddress *btAddress in array) {
         if (![[[BTAddressManager instance] privKeyAddresses] containsObject:btAddress] && ![[[BTAddressManager instance] watchOnlyAddresses] containsObject:btAddress]) {
-            [[BTAddressManager instance] addAddress:btAddress];
+            [[BTAddressManager instance] addAddress:btAddress];//添加地址信息
         }
     }
     [[PeerUtil instance] startPeer];

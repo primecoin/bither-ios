@@ -41,7 +41,7 @@ static Setting *reloadTxsSetting;
     [dialog showInWindow:self.controller.view.window];
 }
 #pragma mark - reload data Prompt box
-- (void)onPasswordEntered:(NSString *)password {
+- (void)onPasswordEntered:(NSString *)password {//重载交易数据
     [self doAction];
 }
 #pragma mark - from_bither Respond to events
@@ -59,7 +59,7 @@ static Setting *reloadTxsSetting;
 }
 
 #pragma mark - reload tx data from blockchain.info
-- (void)reloadTxFrom_blockChain:(DialogProgress *)dialogProgrees{
+- (void)reloadTxFrom_blockChain:(DialogProgress *)dialogProgrees{//从区块链获取tx
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         reloadTime = [[NSDate new] timeIntervalSince1970];
         [[PeerUtil instance] stopPeer];
@@ -134,7 +134,7 @@ static Setting *reloadTxsSetting;
     });
 }
 
-+ (Setting *)getReloadTxsSetting {
++ (Setting *)getReloadTxsSetting {//重载交易数据
 
     if (!reloadTxsSetting) {
         reloadTxsSetting = [[ReloadTxSetting alloc] initWithName:NSLocalizedString(@"Reload Transactions data", nil) icon:nil];

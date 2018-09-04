@@ -18,7 +18,7 @@
 #import <Foundation/Foundation.h>
 #import "BitherSetting.h"
 
-#define TRENDING_GRAPIC_COUNT  25
+#define TRENDING_GRAPIC_COUNT  25 //曲线频率
 #define EXPORED_TIME  1 * 60 * 60
 
 @interface TrendingGraphicData : NSObject

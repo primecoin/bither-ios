@@ -114,7 +114,7 @@
     }
 }
 
-- (void)beginCheck {
+- (void)beginCheck {//检查私钥安全
     checkingIndex = -1;
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];

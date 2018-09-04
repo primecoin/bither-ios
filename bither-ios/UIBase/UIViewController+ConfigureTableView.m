@@ -16,7 +16,7 @@
 //  limitations under the License.
 
 #import "UIViewController+ConfigureTableView.h"
-
+#import "BTSettings.h"
 
 @implementation UIViewController (ConfigureTableView)
 
@@ -35,7 +35,7 @@
     UIImageView *ivTopRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_top_right"]];
     UIImageView *ivBottomLeft = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_bottom_left"]];
     UIImageView *ivBottomRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_item_card_corner_bottom_right"]];
-    UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"setting_footer_logo"]];
+    UIImageView *ivLogo = [[UIImageView alloc] init];
 
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, ivTop.frame.size.height)];
     header.backgroundColor = [UIColor clearColor];
@@ -61,10 +61,10 @@
     [btnLink setTitleColor:[UIColor colorWithWhite:1 alpha:0.6f] forState:UIControlStateNormal];
     [btnLink setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateHighlighted];
     btnLink.titleLabel.font = [UIFont systemFontOfSize:12];
-    [btnLink setTitle:@"http://Bither.net" forState:UIControlStateNormal];
+    [btnLink setTitle:@"http://primecoin.io" forState:UIControlStateNormal];
     [btnLink sizeToFit];
     [btnLink addTarget:self action:@selector(toWebsite) forControlEvents:UIControlEventTouchUpInside];
-    
+
     UIButton *btnPrivacyPolicy = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
     btnPrivacyPolicy.titleLabel.textAlignment = NSTextAlignmentCenter;
     [btnPrivacyPolicy setTitleColor:[UIColor colorWithWhite:1 alpha:0.6f] forState:UIControlStateNormal];
@@ -73,7 +73,11 @@
     [btnPrivacyPolicy setTitle:NSLocalizedString(@"setting.privacy.policy", nil) forState:UIControlStateNormal];
     [btnPrivacyPolicy sizeToFit];
     [btnPrivacyPolicy addTarget:self action:@selector(toPrivacyPolicy) forControlEvents:UIControlEventTouchUpInside];
-
+    if ([[BTSettings instance] getAppMode] == COLD) {
+        [btnPrivacyPolicy setHidden:YES];
+    }else{
+        [btnPrivacyPolicy setHidden:NO];
+    }
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, ivBottom.frame.size.height + logoTopMargin + ivLogo.frame.size.height + logoBottomMargin + lblVersion.frame.size.height + (isHot ? btnLink.frame.size.height : 0) + btnPrivacyPolicy.frame.size.height)];
     footer.backgroundColor = [UIColor clearColor];
     vBottomCover.backgroundColor = colorBg;
@@ -111,10 +115,10 @@
 }
 
 - (void)toWebsite {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://Bither.net"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://primecoin.io"]];
 }
     
-- (void)toPrivacyPolicy {
+- (void)toPrivacyPolicy {//隐私政策
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/bither/bither-android/wiki/PrivacyPolicy"]];
 }
 

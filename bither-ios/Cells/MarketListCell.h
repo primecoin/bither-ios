@@ -18,8 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Market.h"
-
+#import "NTicker.h"
 @interface MarketListCell : UITableViewCell
 - (void)setMarket:(Market *)market;
-
 @end

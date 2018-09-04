@@ -40,4 +40,8 @@
 - (NSString *)getUrl {
     return [@"http://www." stringByAppendingString:[GroupUtil getMarketDomain:self.marketType]];
 }
+- (NTicker *)nticker{
+    _nticker = [NTicker sharedManager];
+    return _nticker;
+}
 @end

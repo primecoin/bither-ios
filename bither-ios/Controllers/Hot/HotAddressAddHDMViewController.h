@@ -17,7 +17,7 @@
 //  limitations under the License.
 //
 //  Created by songchenwen on 15/2/2.
-//
+//  生成hdm账户
 
 #import <UIKit/UIKit.h>
 

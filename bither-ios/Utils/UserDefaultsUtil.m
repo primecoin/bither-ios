@@ -95,9 +95,9 @@ NSUserDefaults *userDefaults;
 
 - (void)setDefaultMarket {
     if ([self localeIsChina]) {
-        [self setMarket:BTCCHINA];
+        [self setMarket:COINMARKETCAP];
     } else {
-        [self setMarket:BITSTAMP];
+        [self setMarket:COINMARKETCAP];
     }
 
 }
@@ -356,7 +356,7 @@ NSUserDefaults *userDefaults;
 
 - (BOOL)getPasswordStrengthCheck {
     if (![userDefaults objectForKey:PASSWORD_STRENGTH_CHECK]) {
-        return NO;
+        return YES;
     }
     return [userDefaults boolForKey:PASSWORD_STRENGTH_CHECK];
 }
@@ -426,7 +426,7 @@ NSUserDefaults *userDefaults;
     if ([userDefaults objectForKey:API_CONFIG]){
         return (ApiConfig)[userDefaults integerForKey:API_CONFIG];
     }
-    return ApiConfigBither;
+    return ApiConfigBlockchainInfo;
 }
 
 - (void)setUpdateCode:(NSInteger) updateCode {

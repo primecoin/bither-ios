@@ -136,7 +136,7 @@
     if(coin == None) {
          return [UnitUtil addSymbol:attr withFontSize:size color:color];
     }else{
-         return [UnitUtil addSymbol:attr withFontSize:size coinCode:[SplitCoinUtil getSplitCoinName:coin]];
+         return [UnitUtil addSymbol:attr withFontSize:size coinCode:[UnitUtil unitName]];
     }
    
 }
@@ -220,7 +220,7 @@
             return @"BCD";
         case UnitBTC:
         default:
-            return @"BTC";
+            return @"XPM";
     }
 }
 

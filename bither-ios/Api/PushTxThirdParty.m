@@ -29,7 +29,7 @@ static PushTxThirdParty* instance;
     return self;
 }
 
--(void)pushTx:(BTTx*) tx {
+-(void)pushTx:(BTTx*) tx {//上传交易到第三方平台
     NSString* raw = [NSString hexWithData:tx.toData];
     [self pushToBlockChainInfo:raw];
     [self pushToBtcCom:raw];

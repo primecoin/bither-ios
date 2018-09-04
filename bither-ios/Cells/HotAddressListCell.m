@@ -139,8 +139,13 @@
     CGRect frame = self.btnAddressFull.frame;
     frame.origin.x = CGRectGetMaxX(self.lblAddress.frame) + 5;
     self.btnAddressFull.frame = frame;
-    if ([MarketUtil getDefaultNewPrice] > 0) {
-        double balanceMoney = ([MarketUtil getDefaultNewPrice] * address.balance) / pow(10, 8);
+    NTicker *tk =  [NTicker sharedManager];
+    double price = [tk.data.quotes.USD.price doubleValue];
+    if ([[UserDefaultsUtil instance] getDefaultCurrency] == CNY) {
+        price = [tk.data.quotes.CNY.price doubleValue];
+    }
+    if (price > 0) {
+        double balanceMoney = (price * address.balance) / pow(10, 8);
         self.lblBalanceMoney.text = [StringUtil formatPrice:balanceMoney];
     } else {
         self.lblBalanceMoney.text = @"--";
